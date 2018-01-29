@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Open extends Pile {
 
 
-  public Open(ArrayList<ArrayList<Card>> pile, int numPile) {
-    super("O", pile, numPile);
+  public Open() {
+    super("O", new ArrayList<ArrayList<Card>>(), 0);
   }
 }

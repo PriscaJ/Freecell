@@ -9,10 +9,11 @@ import java.util.List;
 public class Cascade extends Pile {
   //int numPiles;
 
-  public Cascade(ArrayList<ArrayList<Card>> pile, int numPile) {
-    super("C", pile, numPile);
+  public Cascade() {
+    super("C", new ArrayList<ArrayList<Card>>(), 0);
     //this.numPiles = numPiles;
   }
+
 
   public void roundRobin(List<Card> deck) {
     for (int i = 0; i < numPile; i++) {

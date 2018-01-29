@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Pile {
+  // public to be accessed by the Model
   public final String id;
-  public final ArrayList<ArrayList<Card>> pile;
-  public final int numPile;
+  // not final because they should have the ability to be mutable
+  public ArrayList<ArrayList<Card>> pile;
+  public int numPile;
 
   public Pile(String id, ArrayList<ArrayList<Card>> pile, int numPile) {
     this.id = id;

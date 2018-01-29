@@ -10,12 +10,14 @@ import java.util.List;
 public class FreecellModel implements FreecellOperations<Card> {
   private Cascade cascadePiles;
   private Foundation foundationPiles;
-  private Open OpenPiles;
+  private Open openPiles;
 
   // constructor for a Freecell
   // todo: the pile classes as fields ???
   public FreecellModel() {
-    //this.cascadePiles = new Cascade()
+    this.cascadePiles = new Cascade();
+    this.foundationPiles = new Foundation();
+    this.openPiles = new Open();
   }
 
   @Override
@@ -67,8 +69,9 @@ public class FreecellModel implements FreecellOperations<Card> {
     }
     // distribute in a round robin fashion in the cascade class
     ArrayList<ArrayList<Card>> currPile = new ArrayList<ArrayList<Card>>();
-    Cascade CasPiles = new Cascade(currPile, numCascadePiles);
-    CasPiles.roundRobin(deck);
+    cascadePiles.pile = currPile;
+    cascadePiles.numPile = numCascadePiles;
+    cascadePiles.roundRobin(deck);
 
   }
 
@@ -81,15 +84,16 @@ public class FreecellModel implements FreecellOperations<Card> {
   @Override
   public boolean isGameOver() {
     // check if the foundation piles contain all the cards
-    Foundation foundPiles = new Foundation();
-    return foundPiles.allCards();
+    // Foundation foundPiles = new Foundation();
+    return foundationPiles.allCards();
   }
 
   @Override
   public String getGameState() {
     String workString = "";
     if (!isGameOver()) {
-      workString = Pile.gameStateHelp();
+      workString = foundationPiles.gameStateHelp()
+              + openPiles.gameStateHelp() + cascadePiles.gameStateHelp();
     }
     return workString;
   }
