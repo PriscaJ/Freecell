@@ -5,12 +5,12 @@ import java.util.List;
 
 public abstract class Pile {
   // public to be accessed by the Model
-  public final String id;
+  public final PileType id;
   // not final because they should have the ability to be mutable
   public ArrayList<ArrayList<Card>> pile;
   public int numPile;
 
-  public Pile(String id, ArrayList<ArrayList<Card>> pile, int numPile) {
+  public Pile(PileType id, ArrayList<ArrayList<Card>> pile, int numPile) {
     this.id = id;
     this.pile = pile;
     this.numPile = numPile;
@@ -24,8 +24,9 @@ public abstract class Pile {
    */
   public String gameStateHelp() {
     String workString = "";
+    String idName = id.name().substring(0, 0);
     for (ArrayList<Card> cardPile: pile) {
-      workString = workString + id + pile.indexOf(cardPile) + ":";
+      workString = workString + idName + pile.indexOf(cardPile) + ":";
       if (cardPile.size() == 0) {
         // enter and do the next pile
         workString = workString + "\n";
