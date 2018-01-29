@@ -8,10 +8,15 @@ import java.util.List;
  * Class that represents the model for the Freecell game.
  */
 public class FreecellModel implements FreecellOperations<Card> {
+  private Cascade cascadePiles;
+  private Foundation foundationPiles;
+  private Open OpenPiles;
 
   // constructor for a Freecell
   // todo: the pile classes as fields ???
-  public FreecellModel() { }
+  public FreecellModel() {
+    //this.cascadePiles = new Cascade()
+  }
 
   @Override
   public List<Card> getDeck() {
@@ -75,7 +80,7 @@ public class FreecellModel implements FreecellOperations<Card> {
 
   @Override
   public boolean isGameOver() {
-    return false;
+    // check if the foundation piles contain all the cards
   }
 
   @Override

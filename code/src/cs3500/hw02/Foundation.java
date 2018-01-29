@@ -11,4 +11,23 @@ public class Foundation extends Pile {
     super("F", pile, 4);
     //this.numPile = 4;
   }
+
+  /**
+   * Checks if the foundation piles contains all the cards.
+   * @return Boolean if the all cards are in the foundations.
+   */
+  public boolean allCards() {
+    ArrayList<Card> seen = new ArrayList<Card>();
+    for (ArrayList<Card> suitPile: pile) {
+      for (Card c: suitPile) {
+        if (seen.contains(c)) {
+          throw new RuntimeException("duplicate card");
+        }
+        else {
+          seen.add(c);
+        }
+      }
+    }
+    return seen.size() == 52;
+  }
 }
