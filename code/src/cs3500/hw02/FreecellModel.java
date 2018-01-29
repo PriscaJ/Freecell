@@ -18,6 +18,25 @@ public class FreecellModel implements FreecellOperations<Card> {
     return deck;
   }
 
+  /**
+   * Verifies that the deck is valid.
+   * @param deck
+   * @return
+   */
+  private boolean isValid(List<Card> deck) {
+    ArrayList<Card> seen = new ArrayList<Card>();
+    if (deck.size()!= 52) {
+      return false;
+    }
+    for (Card c: deck) {
+      if (seen.contains(c)) {
+        return false;
+      }
+      seen.add(c);
+    }
+    return true;
+  }
+
   @Override
   public void startGame(List<Card> deck, int numCascadePiles, int numOpenPiles, boolean shuffle)
           throws IllegalArgumentException {
@@ -25,18 +44,18 @@ public class FreecellModel implements FreecellOperations<Card> {
     if (numCascadePiles < 4 || numOpenPiles < 1) {
       throw new IllegalArgumentException("Not enough piles");
     }
+    if (!isValid(deck)) {
+      throw new IllegalArgumentException("Bad deck");
+    }
 
     if (shuffle) {
       Collections.shuffle(deck);
     }
 
-
-    // Cascade cascadePiles;
     // distribute in a round robin fashion in the cascade class
     ArrayList<ArrayList<Card>> currPile = new ArrayList<ArrayList<Card>>();
     Cascade CasPiles = new Cascade(currPile, numCascadePiles);
     CasPiles.roundRobin(deck);
-
 
 
   }
