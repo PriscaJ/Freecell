@@ -30,13 +30,14 @@ public class FreecellModel implements FreecellOperations<Card> {
       Collections.shuffle(deck);
     }
 
-    Cascade cascadePiles;
-    int countdown = 0;
+
+    // Cascade cascadePiles;
+    // distribute in a round robin fashion in the cascade class
     ArrayList<ArrayList<Card>> currPile = new ArrayList<ArrayList<Card>>();
-    // distribute in a round robin fashion
-    for (Card c: deck) {
-      cascadePiles = currPile.get(countdown).add(c);
-    }
+    Cascade CasPiles = new Cascade(currPile, numCascadePiles);
+    CasPiles.roundRobin(deck);
+
+
 
   }
 
