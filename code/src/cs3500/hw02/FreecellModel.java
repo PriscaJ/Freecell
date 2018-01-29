@@ -4,7 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Class that represents the model for the Freecell game.
+ */
 public class FreecellModel implements FreecellOperations<Card> {
+
+  // constructor for a Freecell
+  // todo: the pile classes as fields ???
+  public FreecellModel() { }
 
   @Override
   public List<Card> getDeck() {
@@ -40,23 +47,23 @@ public class FreecellModel implements FreecellOperations<Card> {
   @Override
   public void startGame(List<Card> deck, int numCascadePiles, int numOpenPiles, boolean shuffle)
           throws IllegalArgumentException {
+    // check the deck
+    if (!isValid(deck)) {
+      throw new IllegalArgumentException("Bad deck");
+    }
     // are there a valid amount of cards in the piles
     if (numCascadePiles < 4 || numOpenPiles < 1) {
       throw new IllegalArgumentException("Not enough piles");
     }
-    if (!isValid(deck)) {
-      throw new IllegalArgumentException("Bad deck");
-    }
-
+    // shuffling the cards
     if (shuffle) {
       Collections.shuffle(deck);
+      shuffle = false;
     }
-
     // distribute in a round robin fashion in the cascade class
     ArrayList<ArrayList<Card>> currPile = new ArrayList<ArrayList<Card>>();
     Cascade CasPiles = new Cascade(currPile, numCascadePiles);
     CasPiles.roundRobin(deck);
-
 
   }
 
@@ -73,6 +80,10 @@ public class FreecellModel implements FreecellOperations<Card> {
 
   @Override
   public String getGameState() {
-    return null;
+    String workString = "";
+    if (!isGameOver()) {
+      workString = Pile.gameStateHelp();
+    }
+    return workString;
   }
 }

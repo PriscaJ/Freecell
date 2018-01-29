@@ -9,6 +9,6 @@ public class Open extends Pile {
 
 
   public Open(ArrayList<ArrayList<Card>> pile, int numPile) {
-    super(pile, numPile);
+    super("O", pile, numPile);
   }
 }
