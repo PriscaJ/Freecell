@@ -7,8 +7,8 @@ import java.util.ArrayList;
  */
 public class Foundation extends Pile {
   //int numPile;
-  public Foundation(ArrayList<ArrayList<Card>> pile, int numPile) {
-    super("F", pile, 4);
+  public Foundation() {
+    super("F", new ArrayList<ArrayList<Card>>(), 4);
     //this.numPile = 4;
   }
 

@@ -81,6 +81,8 @@ public class FreecellModel implements FreecellOperations<Card> {
   @Override
   public boolean isGameOver() {
     // check if the foundation piles contain all the cards
+    Foundation foundPiles = new Foundation();
+    return foundPiles.allCards();
   }
 
   @Override
