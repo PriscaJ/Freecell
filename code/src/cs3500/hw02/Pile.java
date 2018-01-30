@@ -45,4 +45,26 @@ public abstract class Pile {
     }
     return workString;
   }
+
+  /**
+   * A helper to determine if a card can be moved.
+   */
+  public void moveHelp(ArrayList<ArrayList<Card>> allPiles, int fromPile, int pickCard,
+                       PileType goingTo, int goingPile) {
+
+  }
+
+  /**
+   * Is it possible to take a card from this pile.
+   * i.e. are there enough cards.
+   * @return
+   */
+  public abstract boolean canTake();
+
+  /**
+   * Can a card be placed in this pile?
+   * @return boolean can the card be placed in the pile
+   */
+  public abstract boolean canPlace();
+
 }
