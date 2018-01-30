@@ -9,6 +9,7 @@ import cs3500.hw02.FreecellOperations;
 import cs3500.hw02.PileType;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class FreecellModelTest {
 
@@ -84,12 +85,61 @@ public class FreecellModelTest {
 
   @Test
   public void testGameOver() {
+    model.startGame(model.getDeck(),5,3,false);
+    assertEquals(false, model.isGameOver());
 
   }
 
+  @Test
+  public void testFullFoundation() {
+    // todo
+  }
+
+
+
+  @Test
+  public void testShuffle() {
+    this.initData();
+    String stage1 = model.getGameState();
+    model.startGame(model.getDeck(), 4, 2, true);
+    String stage2 = model.getGameState();
+
+    assertNotEquals(stage1, stage2);
+  }
+
+  @Test
+  public void testEmptyGameState() {
+    model.startGame(model.getDeck(), 2, 3, false);
+    assertEquals("", model.getGameState());
+  }
 
   @Test(expected = IllegalArgumentException.class)
-    public void testException() {
+    public void testLittleCascade() {
+    model.startGame(model.getDeck(), 2, 3, false);
 
     }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testLittleOpen() {
+    model.startGame(model.getDeck(), 4, 0, false);
+
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testFoundationInvalid() {
+    model.startGame(model.getDeck(), 4, 0, false);
+    // todo: wrong suit
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testCascadeInvalid() {
+    model.startGame(model.getDeck(), 4, 0, false);
+    // todo: wrong suit
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testOpenInvalid() {
+    model.startGame(model.getDeck(), 4, 0, false);
+    // todo: card on pile
+  }
 }
