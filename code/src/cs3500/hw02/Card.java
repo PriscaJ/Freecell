@@ -24,6 +24,6 @@ public class Card {
    * @return String representation of this card
    */
   public String toString() {
-    return suit.toString() + value.toString();
+    return  value.toString() + suit.toString();
   }
 }
