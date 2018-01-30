@@ -64,7 +64,7 @@ public abstract class Pile {
   /**
    * Is it possible to take a card from this pile.
    * i.e. last card in pile
-   * @return
+   * @return boolean if it is the last card in the pile.
    */
   private boolean canTake(Card c, ArrayList<ArrayList<Card>> allPiles, int fromPile) {
     return c.equals(allPiles.get(fromPile).get(allPiles.get(fromPile).size() - 1));

@@ -30,4 +30,17 @@ public class Foundation extends Pile {
     }
     return seen.size() == 52;
   }
+
+  @Override
+  public void canPlace(Card c, PileType pt, int destPile) {
+     Card currLastCard = this.pile.get(destPile).get(this.pile.get(destPile).size() - 1);
+
+     if (c.suit.equals(currLastCard.suit)
+             && currLastCard.value.value == (c.value.value - 1)) {
+       this.pile.get(destPile).add(c);
+     }
+     else {
+       throw new IllegalArgumentException("Cannot place card");
+     }
+  }
 }
