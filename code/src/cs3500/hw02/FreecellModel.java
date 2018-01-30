@@ -12,8 +12,9 @@ public class FreecellModel implements FreecellOperations<Card> {
   private Foundation foundationPiles;
   private Open openPiles;
 
-  // constructor for a Freecell
-  // todo: the pile classes as fields ???
+  /**
+   * Constructor for the model in freecell.
+   */
   public FreecellModel() {
     this.cascadePiles = new Cascade();
     this.foundationPiles = new Foundation();
@@ -34,12 +35,12 @@ public class FreecellModel implements FreecellOperations<Card> {
 
   /**
    * Verifies that the deck is valid.
-   * @param deck
-   * @return
+   * @param deck The given deck of cards.
+   * @return Boolean if it is a valid deck.
    */
   private boolean isValid(List<Card> deck) {
     ArrayList<Card> seen = new ArrayList<Card>();
-    if (deck.size()!= 52) {
+    if (deck.size() != 52) {
       return false;
     }
     for (Card c: deck) {

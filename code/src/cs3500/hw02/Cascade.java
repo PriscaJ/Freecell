@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents the cascade piles in a game of FreeCell
+ * Represents the cascade piles in a game of FreeCell.
  */
 public class Cascade extends Pile {
   //int numPiles;
@@ -15,14 +15,19 @@ public class Cascade extends Pile {
   }
 
 
+  /**
+   * Distributes the cards in a round robin.
+   *
+   * @param deck the deck of cards.
+   */
   public void roundRobin(List<Card> deck) {
     for (int i = 0; i < numPile; i++) {
       pile.add(new ArrayList<Card>());
     }
-      int countdown = 0;
-      for (Card c : deck) {
-        pile.get(countdown).add(c);
-        countdown = (countdown + 1) % numPile;
+    int countdown = 0;
+    for (Card c : deck) {
+      pile.get(countdown).add(c);
+      countdown = (countdown + 1) % numPile;
     }
   }
 
@@ -41,8 +46,8 @@ public class Cascade extends Pile {
                 && currLastCard.value.value == (c.value.value - 1)) {
           this.pile.get(destPile).add(c);
         }
-        default:
-          throw new IllegalArgumentException("Cannot place card");
+      default:
+        throw new IllegalArgumentException("Cannot place card");
     }
   }
 }

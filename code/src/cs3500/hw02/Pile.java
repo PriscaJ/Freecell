@@ -1,8 +1,11 @@
 package cs3500.hw02;
 
 import java.util.ArrayList;
-import java.util.List;
 
+
+/**
+ * Class to abstract the behavior of piles in Freecell.
+ */
 public abstract class Pile {
   // public to be accessed by the Model
   public final PileType id;
@@ -10,6 +13,13 @@ public abstract class Pile {
   public ArrayList<ArrayList<Card>> pile;
   public int numPile;
 
+  /**
+   * Base constructor for piles in freecell.
+   *
+   * @param id      the Piletype identifier.
+   * @param pile    The piles in use for the game.
+   * @param numPile the number of piles for the type of pile in the game.
+   */
   public Pile(PileType id, ArrayList<ArrayList<Card>> pile, int numPile) {
     this.id = id;
     this.pile = pile;
@@ -20,24 +30,23 @@ public abstract class Pile {
 
   /**
    * The state of the cards in the game.
+   *
    * @return String of the cards and their position in the game.
    */
   public String gameStateHelp() {
     String workString = "";
     String idName = id.name().substring(0, 0);
-    for (ArrayList<Card> cardPile: pile) {
+    for (ArrayList<Card> cardPile : pile) {
       workString = workString + idName + pile.indexOf(cardPile) + ":";
       if (cardPile.size() == 0) {
         // enter and do the next pile
         workString = workString + "\n";
-      }
-      else {
-        for (Card c: cardPile) {
+      } else {
+        for (Card c : cardPile) {
           // is this the last card in the pile?
           if (c.equals(cardPile.get(cardPile.size() - 1))) {
             workString = workString + " " + c.toString() + "\n";
-          }
-          else {
+          } else {
             workString = workString + " " + c.toString() + ",";
           }
         }
@@ -62,8 +71,8 @@ public abstract class Pile {
   }
 
   /**
-   * Is it possible to take a card from this pile.
-   * i.e. last card in pile
+   * Is it possible to take a card from this pile. i.e. last card in pile
+   *
    * @return boolean if it is the last card in the pile.
    */
   private boolean canTake(Card c, ArrayList<ArrayList<Card>> allPiles, int fromPile) {
@@ -71,8 +80,11 @@ public abstract class Pile {
   }
 
   /**
-   * Can a card be placed in this pile?
-   * @return boolean can the card be placed in the pile
+   * Can a card be placed in this pile.
+   *
+   * @param c        The card that will be placed.
+   * @param pt       The type of pile it is going to.
+   * @param destPile The exact pile it's going to.
    */
   public abstract void canPlace(Card c, PileType pt, int destPile);
 

@@ -14,16 +14,16 @@ public class Foundation extends Pile {
 
   /**
    * Checks if the foundation piles contains all the cards.
+   *
    * @return Boolean if the all cards are in the foundations.
    */
   public boolean allCards() {
     ArrayList<Card> seen = new ArrayList<Card>();
-    for (ArrayList<Card> suitPile: pile) {
-      for (Card c: suitPile) {
+    for (ArrayList<Card> suitPile : pile) {
+      for (Card c : suitPile) {
         if (seen.contains(c)) {
           throw new RuntimeException("duplicate card");
-        }
-        else {
+        } else {
           seen.add(c);
         }
       }
@@ -33,14 +33,13 @@ public class Foundation extends Pile {
 
   @Override
   public void canPlace(Card c, PileType pt, int destPile) {
-     Card currLastCard = this.pile.get(destPile).get(this.pile.get(destPile).size() - 1);
+    Card currLastCard = this.pile.get(destPile).get(this.pile.get(destPile).size() - 1);
 
-     if (c.suit.equals(currLastCard.suit)
-             && currLastCard.value.value == (c.value.value - 1)) {
-       this.pile.get(destPile).add(c);
-     }
-     else {
-       throw new IllegalArgumentException("Cannot place card");
-     }
+    if (c.suit.equals(currLastCard.suit)
+            && currLastCard.value.value == (c.value.value - 1)) {
+      this.pile.get(destPile).add(c);
+    } else {
+      throw new IllegalArgumentException("Cannot place card");
+    }
   }
 }
