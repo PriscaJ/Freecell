@@ -52,19 +52,28 @@ public abstract class Pile {
   public void moveHelp(ArrayList<ArrayList<Card>> allPiles, int fromPile, int pickCard,
                        PileType goingTo, int goingPile) {
 
+    Card movingCard = allPiles.get(fromPile).get(pickCard);
+    if (!canTake(movingCard, allPiles, fromPile)) {
+      throw new IllegalArgumentException("Must choose last card in Pile");
+    }
+    else {
+      canPlace(movingCard, goingTo, goingPile);
+    }
   }
 
   /**
    * Is it possible to take a card from this pile.
-   * i.e. are there enough cards.
+   * i.e. last card in pile
    * @return
    */
-  public abstract boolean canTake();
+  private boolean canTake(Card c, ArrayList<ArrayList<Card>> allPiles, int fromPile) {
+    return c.equals(allPiles.get(fromPile).get(allPiles.get(fromPile).size() - 1));
+  }
 
   /**
    * Can a card be placed in this pile?
    * @return boolean can the card be placed in the pile
    */
-  public abstract boolean canPlace();
+  public abstract void canPlace(Card c, PileType pt, int destPile);
 
 }
