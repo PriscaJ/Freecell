@@ -26,4 +26,12 @@ public class Card {
   public String toString() {
     return  value.toString() + suit.toString();
   }
+
+  /**
+   * Ensures the card is valid.
+   * @return boolean.
+   */
+  public boolean isValid() {
+    return CardVal.values().equals(this.value) && Suit.values().equals(this.suit);
+  }
 }

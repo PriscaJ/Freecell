@@ -44,8 +44,11 @@ public class FreecellModel implements FreecellOperations<Card> {
       return false;
     }
     for (Card c: deck) {
+      if (!c.isValid()) {
+        throw new IllegalArgumentException("Bad card");
+      }
       if (seen.contains(c)) {
-        return false;
+        throw new IllegalArgumentException("Bad Deck");
       }
       seen.add(c);
     }
