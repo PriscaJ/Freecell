@@ -35,16 +35,17 @@ public abstract class Pile {
    */
   public String gameStateHelp() {
     String workString = "";
-    String idName = id.name().substring(0, 0);
-    for (ArrayList<Card> cardPile : pile) {
-      workString = workString + idName + (pile.indexOf(cardPile) + 1) + ":";
-      if (cardPile.size() == 0) {
+    String idName = id.pt;
+    for (int i = 0; i < pile.size(); i ++) {
+      workString = workString + idName + (i + 1) + ":";
+      if (pile.get(i).size() == 0) {
         // enter and do the next pile
         workString = workString + "\n";
-      } else {
-        for (Card c : cardPile) {
+      }
+      else {
+        for (Card c : pile.get(i)) {
           // is this the last card in the pile?
-          if (c.equals(cardPile.get(cardPile.size() - 1))) {
+          if (c.equals(pile.get(i).get(pile.get(i).size() - 1))) {
             workString = workString + " " + c.toString() + "\n";
           } else {
             workString = workString + " " + c.toString() + ",";

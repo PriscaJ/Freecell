@@ -9,7 +9,9 @@ public class Foundation extends Pile {
   //int numPile;
   public Foundation() {
     super(PileType.FOUNDATION, new ArrayList<ArrayList<Card>>(), 4);
-    //this.numPile = 4;
+    for (int i= 0; i < numPile; i++) {
+      pile.add(new ArrayList<Card>());
+    }
   }
 
   /**
@@ -26,7 +28,7 @@ public class Foundation extends Pile {
         } else {
           seen.add(c);
         }
-      } 
+      }
     }
     return seen.size() == 52;
   }

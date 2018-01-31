@@ -68,10 +68,12 @@ public class FreecellModel implements FreecellOperations<Card> {
       Collections.shuffle(deck);
       this.startGame(deck, numCascadePiles, numOpenPiles, false);
     }
-    // distribute in a round robin fashion in the cascade class
+    // Set up the cards in the cascade and open piles
     ArrayList<ArrayList<Card>> currPile = new ArrayList<ArrayList<Card>>();
     cascadePiles.pile = currPile;
+    openPiles.pile = currPile;
     cascadePiles.numPile = numCascadePiles;
+    openPiles.numPile = numOpenPiles;
     cascadePiles.roundRobin(deck);
 
   }
