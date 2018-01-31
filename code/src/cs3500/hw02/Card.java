@@ -31,7 +31,24 @@ public class Card {
    * Ensures the card is valid.
    * @return boolean.
    */
-  public boolean isValid() {
+  public boolean validCard() {
     return CardVal.values().equals(this.value) && Suit.values().equals(this.suit);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof Card) {
+      Card comp = (Card) obj;
+      return comp.value.equals(this.value)
+              && comp.suit.equals(this.suit);
+    }
+    else {
+      return false;
+    }
+  }
+
+  @Override
+  public int hashCode() {
+    return this.value.hashCode() * 10000 + this.suit.hashCode();
   }
 }

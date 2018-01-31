@@ -20,7 +20,8 @@ public class Cascade extends Pile {
    *
    * @param deck the deck of cards.
    */
-  public void roundRobin(List<Card> deck) {
+  void roundRobin(List<Card> deck) {
+
     for (int i = 0; i < numPile; i++) {
       pile.add(new ArrayList<Card>());
     }
@@ -35,19 +36,22 @@ public class Cascade extends Pile {
   public void canPlace(Card c, PileType pt, int destPile) {
     Card currLastCard = this.pile.get(destPile).get(this.pile.get(destPile).size() - 1);
 
-    switch (currLastCard.suit.sc) {
-      case red:
-        if (c.suit.sc.equals(Suit.SuitColor.black)
-                && currLastCard.value.value == (c.value.value - 1)) {
-          this.pile.get(destPile).add(c);
-        }
-      case black:
-        if (c.suit.sc.equals(Suit.SuitColor.red)
-                && currLastCard.value.value == (c.value.value - 1)) {
-          this.pile.get(destPile).add(c);
-        }
-      default:
+    if (currLastCard.suit.sc.equals(Suit.SuitColor.red)) {
+      if (c.suit.sc.equals(Suit.SuitColor.black)
+              && currLastCard.value.value == (c.value.value - 1)) {
+        this.pile.get(destPile).add(c);
+      } else {
         throw new IllegalArgumentException("Cannot place card");
+      }
+    } else if (currLastCard.suit.sc.equals(Suit.SuitColor.black)) {
+      if (c.suit.sc.equals(Suit.SuitColor.red)
+              && currLastCard.value.value == (c.value.value - 1)) {
+        this.pile.get(destPile).add(c);
+      } else {
+        throw new IllegalArgumentException("Cannot place card");
+      }
+    } else {
+      throw new IllegalArgumentException("Cannot place card");
     }
   }
 }

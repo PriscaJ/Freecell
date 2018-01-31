@@ -37,7 +37,7 @@ public abstract class Pile {
     String workString = "";
     String idName = id.name().substring(0, 0);
     for (ArrayList<Card> cardPile : pile) {
-      workString = workString + idName + pile.indexOf(cardPile) + ":";
+      workString = workString + idName + (pile.indexOf(cardPile) + 1) + ":";
       if (cardPile.size() == 0) {
         // enter and do the next pile
         workString = workString + "\n";
@@ -64,8 +64,7 @@ public abstract class Pile {
     Card movingCard = allPiles.get(fromPile).get(pickCard);
     if (!canTake(movingCard, allPiles, fromPile)) {
       throw new IllegalArgumentException("Must choose last card in Pile");
-    }
-    else {
+    } else {
       canPlace(movingCard, goingTo, goingPile);
     }
   }

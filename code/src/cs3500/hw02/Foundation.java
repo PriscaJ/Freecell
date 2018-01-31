@@ -26,7 +26,7 @@ public class Foundation extends Pile {
         } else {
           seen.add(c);
         }
-      }
+      } 
     }
     return seen.size() == 52;
   }

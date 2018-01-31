@@ -44,9 +44,6 @@ public class FreecellModel implements FreecellOperations<Card> {
       return false;
     }
     for (Card c: deck) {
-      if (!c.isValid()) {
-        throw new IllegalArgumentException("Bad card");
-      }
       if (seen.contains(c)) {
         throw new IllegalArgumentException("Bad Deck");
       }
@@ -69,7 +66,7 @@ public class FreecellModel implements FreecellOperations<Card> {
     // shuffling the cards
     if (shuffle) {
       Collections.shuffle(deck);
-      shuffle = false;
+      this.startGame(deck, numCascadePiles, numOpenPiles, false);
     }
     // distribute in a round robin fashion in the cascade class
     ArrayList<ArrayList<Card>> currPile = new ArrayList<ArrayList<Card>>();

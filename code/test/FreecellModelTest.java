@@ -16,6 +16,9 @@ public class FreecellModelTest {
   FreecellOperations<Card> model;
   List<Card> testDeck;
 
+  /**
+   * Initializes the data.
+   */
   public void initData() {
     model = new FreecellModel();
     testDeck = model.getDeck();
@@ -55,11 +58,29 @@ public class FreecellModelTest {
   }
 
   @Test
-  public void testMove() {
+  public void testMoveToEmptyOpen() {
     this.initData();
     List<Card> deck = model.getDeck();
+    model.startGame(model.getDeck(), 4, 3, false);
+    model.move(PileType.CASCADE, 0, 12, PileType.OPEN, 0);
+    assertEquals(
+            "F1:\n" +
+                    "F2:\n" +
+                    "F3:\n" +
+                    "F4:\n" +
+                    "O1: 10♦\n" +
+                    "O2:\n" +
+                    "O3:\n" +
+                    "C1: A♠, 5♠, 9♠, K♠, 4♣, 8♣, Q♣, 3♥, 7♥, J♥, 2♦, 6♦\n" +
+                    "C2: 2♠, 6♠, 10♠, A♣, 5♣, 9♣, K♣, 4♥, 8♥, Q♥, 3♦, 7♦, J♦\n" +
+                    "C3: 3♠, 7♠, J♠, 2♣, 6♣, 10♣, A♥, 5♥, 9♥, K♥, 4♦, 8♦, Q♦\n" +
+                    "C4: 4♠, 8♠, Q♠, 3♣, 7♣, J♣, 2♥, 6♥, 10♥, A♦, 5♦, 9♦, K♦",
+            model.getGameState());
 
-    model.startGame(model.getDeck(), 4, 2, false);
+
+    // ignore vvvvvv
+
+    /** model.startGame(model.getDeck(), 4, 2, false);
     // model.move(PileType.CASCADE, 1 , )
 
     model.startGame(model.getDeck(), 4, 1, false);
@@ -68,19 +89,28 @@ public class FreecellModelTest {
 
     model.move(PileType.CASCADE, 1, 12, PileType.OPEN, 1);
     String stage2 = model.getGameState();
-    System.out.print(stage2);
+    System.out.print(stage2); **/
+
   }
 
   @Test
   public void testGameState() {
     this.initData();
 
-    List<Card> d = model.getDeck();
-
-    assertEquals("", model.getGameState());
-
-    model.startGame(d, 4, 2, false);
-    System.out.print(model.getGameState());
+    model.startGame(model.getDeck(), 4, 3, false);
+    assertEquals(
+            "F1:\n" +
+                    "F2:\n" +
+                    "F3:\n" +
+                    "F4:\n" +
+                    "O1:\n" +
+                    "O2:\n" +
+                    "O3:\n" +
+                    "C1: A♠, 5♠, 9♠, K♠, 4♣, 8♣, Q♣, 3♥, 7♥, J♥, 2♦, 6♦, 10♦\n" +
+                    "C2: 2♠, 6♠, 10♠, A♣, 5♣, 9♣, K♣, 4♥, 8♥, Q♥, 3♦, 7♦, J♦\n" +
+                    "C3: 3♠, 7♠, J♠, 2♣, 6♣, 10♣, A♥, 5♥, 9♥, K♥, 4♦, 8♦, Q♦\n" +
+                    "C4: 4♠, 8♠, Q♠, 3♣, 7♣, J♣, 2♥, 6♥, 10♥, A♦, 5♦, 9♦, K♦",
+            model.getGameState());
   }
 
   @Test
@@ -90,9 +120,11 @@ public class FreecellModelTest {
 
   }
 
-  @Test
+  @Test(expected = IllegalArgumentException.class)
   public void testFullFoundation() {
-    // todo
+    model.startGame(model.getDeck(), 4, 3, false);
+    model.move(PileType.CASCADE, 0, 12, PileType.FOUNDATION, 0);
+    model.move(PileType.CASCADE, 0, 12, PileType.FOUNDATION, 0);
   }
 
 
@@ -117,7 +149,7 @@ public class FreecellModelTest {
     public void testLittleCascade() {
     model.startGame(model.getDeck(), 2, 3, false);
 
-    }
+  }
 
   @Test(expected = IllegalArgumentException.class)
   public void testLittleOpen() {
@@ -127,19 +159,21 @@ public class FreecellModelTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testFoundationInvalid() {
-    model.startGame(model.getDeck(), 4, 0, false);
+    model.startGame(model.getDeck(), 4, 2, false);
     // todo: wrong suit
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testCascadeInvalid() {
-    model.startGame(model.getDeck(), 4, 0, false);
+    model.startGame(model.getDeck(), 4, 2, false);
     // todo: wrong suit
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testOpenInvalid() {
-    model.startGame(model.getDeck(), 4, 0, false);
-    // todo: card on pile
+    model.startGame(model.getDeck(), 4, 2, false);
+    model.move(PileType.CASCADE, 0, 12, PileType.OPEN, 0);
+    model.move(PileType.CASCADE, 1, 12, PileType.OPEN, 1);
+    model.move(PileType.CASCADE, 2, 12, PileType.OPEN, 1);
   }
 }
