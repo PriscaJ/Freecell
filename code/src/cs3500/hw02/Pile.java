@@ -36,7 +36,7 @@ public abstract class Pile {
   public String gameStateHelp() {
     String workString = "";
     String idName = id.pt;
-    for (int i = 0; i < pile.size(); i ++) {
+    for (int i = 0; i < pile.size(); i++) {
       workString = workString + idName + (i + 1) + ":";
       if (pile.get(i).size() == 0) {
         // enter and do the next pile
@@ -47,7 +47,8 @@ public abstract class Pile {
           // is this the last card in the pile?
           if (c.equals(pile.get(i).get(pile.get(i).size() - 1))) {
             workString = workString + " " + c.toString() + "\n";
-          } else {
+          }
+          else {
             workString = workString + " " + c.toString() + ",";
           }
         }

@@ -69,11 +69,15 @@ public class FreecellModel implements FreecellOperations<Card> {
       this.startGame(deck, numCascadePiles, numOpenPiles, false);
     }
     // Set up the cards in the cascade and open piles
-    ArrayList<ArrayList<Card>> currPile = new ArrayList<ArrayList<Card>>();
-    cascadePiles.pile = currPile;
-    openPiles.pile = currPile;
+    ArrayList<ArrayList<Card>> currCasPile = new ArrayList<ArrayList<Card>>();
+    ArrayList<Card> currOpenPile = new ArrayList<Card>();
+    cascadePiles.pile = currCasPile;
+    // openPiles.pile = currPile;
     cascadePiles.numPile = numCascadePiles;
     openPiles.numPile = numOpenPiles;
+    for (int i= 0; i < openPiles.numPile; i++) {
+      openPiles.pile.add(currOpenPile);
+    }
     cascadePiles.roundRobin(deck);
 
   }
