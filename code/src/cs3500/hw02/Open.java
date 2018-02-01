@@ -14,7 +14,7 @@ public class Open extends Pile {
 
   @Override
   public void canPlace(Card c, PileType pt, int destPile) {
-    if (this.pile.get(destPile).size() == 0) {
+    if (pile.get(destPile).size() == 0) {
       this.pile.get(destPile).add(c);
     }
     else {

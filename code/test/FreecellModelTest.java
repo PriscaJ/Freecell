@@ -68,13 +68,13 @@ public class FreecellModelTest {
                     "F2:\n" +
                     "F3:\n" +
                     "F4:\n" +
-                    "O1: 10♦\n" +
+                    "O1: 10♠\n" +
                     "O2:\n" +
                     "O3:\n" +
-                    "C1: A♠, 5♠, 9♠, K♠, 4♣, 8♣, Q♣, 3♥, 7♥, J♥, 2♦, 6♦\n" +
-                    "C2: 2♠, 6♠, 10♠, A♣, 5♣, 9♣, K♣, 4♥, 8♥, Q♥, 3♦, 7♦, J♦\n" +
-                    "C3: 3♠, 7♠, J♠, 2♣, 6♣, 10♣, A♥, 5♥, 9♥, K♥, 4♦, 8♦, Q♦\n" +
-                    "C4: 4♠, 8♠, Q♠, 3♣, 7♣, J♣, 2♥, 6♥, 10♥, A♦, 5♦, 9♦, K♦",
+                    "C1: A♣, 5♣, 9♣, K♣, 4♦, 8♦, Q♦, 3♥, 7♥, J♥, 2♠, 6♠\n" +
+                    "C2: 2♣, 6♣, 10♣, A♦, 5♦, 9♦, K♦, 4♥, 8♥, Q♥, 3♠, 7♠, J♠\n" +
+                    "C3: 3♣, 7♣, J♣, 2♦, 6♦, 10♦, A♥, 5♥, 9♥, K♥, 4♠, 8♠, Q♠\n" +
+                    "C4: 4♣, 8♣, Q♣, 3♦, 7♦, J♦, 2♥, 6♥, 10♥, A♠, 5♠, 9♠, K♠\n",
             model.getGameState());
 
 
@@ -115,6 +115,7 @@ public class FreecellModelTest {
 
   @Test
   public void testGameOver() {
+    this.initData();
     model.startGame(model.getDeck(),5,3,false);
     assertEquals(false, model.isGameOver());
 
@@ -122,6 +123,7 @@ public class FreecellModelTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testFullFoundation() {
+    this.initData();
     model.startGame(model.getDeck(), 4, 3, false);
     model.move(PileType.CASCADE, 0, 12, PileType.FOUNDATION, 0);
     model.move(PileType.CASCADE, 0, 12, PileType.FOUNDATION, 0);
@@ -141,36 +143,42 @@ public class FreecellModelTest {
 
   @Test
   public void testEmptyGameState() {
+    this.initData();
     model.startGame(model.getDeck(), 2, 3, false);
     assertEquals("", model.getGameState());
   }
 
   @Test(expected = IllegalArgumentException.class)
     public void testLittleCascade() {
+    this.initData();
     model.startGame(model.getDeck(), 2, 3, false);
 
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testLittleOpen() {
+    this.initData();
     model.startGame(model.getDeck(), 4, 0, false);
 
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testFoundationInvalid() {
+    this.initData();
     model.startGame(model.getDeck(), 4, 2, false);
     // todo: wrong suit
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testCascadeInvalid() {
+    this.initData();
     model.startGame(model.getDeck(), 4, 2, false);
     // todo: wrong suit
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testOpenInvalid() {
+    this.initData();
     model.startGame(model.getDeck(), 4, 2, false);
     model.move(PileType.CASCADE, 0, 12, PileType.OPEN, 0);
     model.move(PileType.CASCADE, 1, 12, PileType.OPEN, 1);

@@ -67,7 +67,7 @@ public abstract class Pile {
     if (!canTake(movingCard, allPiles, fromPile)) {
       throw new IllegalArgumentException("Must choose last card in Pile");
     } else {
-      canPlace(movingCard, goingTo, goingPile);
+      goingTo.pile.canPlace(movingCard, goingTo, goingPile);
     }
   }
 

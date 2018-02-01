@@ -13,11 +13,13 @@ package cs3500.hw02;
  * game is to fill up all the foundation piles
  */
 public enum PileType {
-  OPEN("O"), CASCADE("C"), FOUNDATION("F");
+  OPEN("O", new Open()), CASCADE("C", new Cascade()), FOUNDATION("F", new Foundation());
 
   public final String pt;
+  public final Pile pile;
 
-  PileType(String pt) {
+  PileType(String pt, Pile pile) {
     this.pt = pt;
+    this.pile = pile;
   }
 }
