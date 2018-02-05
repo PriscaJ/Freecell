@@ -116,10 +116,13 @@ public class FreecellModel implements FreecellOperations<Card> {
   @Override
   public String getGameState() {
     String workString = "";
+    String trim = "";
     if (!isGameOver()) {
       workString = foundationPiles.gameStateHelp()
               + openPiles.gameStateHelp() + cascadePiles.gameStateHelp();
+      trim = workString.trim();
+
     }
-    return workString;
+    return trim;
   }
 }

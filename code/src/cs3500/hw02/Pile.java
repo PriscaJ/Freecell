@@ -54,6 +54,7 @@ public abstract class Pile {
         }
       }
     }
+    // workString = workString.substring(0, workString.length() - 1);
     return workString;
   }
 
