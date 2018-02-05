@@ -85,11 +85,10 @@ public class FreecellModel implements FreecellOperations<Card> {
   @Override
   public void move(PileType source, int pileNumber, int cardIndex, PileType destination,
                    int destPileNumber) throws IllegalArgumentException {
-    // todo: helper methods
-    // at least two methods (canTake and canPlace)???
-    // dynamic dispatch how each pileType handles placing
-    // overriding the abstracted method
 
+    if ((source == null) || (destination == null)) {
+      throw new IllegalArgumentException("source or destination can not be null");
+    }
     if (source.equals(PileType.FOUNDATION)) {
       throw new IllegalArgumentException("Cannot move from a foundation");
     }

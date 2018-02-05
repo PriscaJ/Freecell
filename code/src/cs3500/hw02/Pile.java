@@ -24,6 +24,7 @@ public abstract class Pile {
     this.id = id;
     this.pile = pile;
     this.numPile = numPile;
+
   }
 
   // unsure about making this static, todo: take out static maybe?
@@ -67,7 +68,8 @@ public abstract class Pile {
     Card movingCard = allPiles.get(fromPile).get(pickCard);
     if (!canTake(movingCard, allPiles, fromPile)) {
       throw new IllegalArgumentException("Must choose last card in Pile");
-    } else {
+    }
+    else {
       goingTo.pile.canPlace(movingCard, goingTo, goingPile);
     }
   }

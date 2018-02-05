@@ -60,8 +60,9 @@ public class FreecellModelTest {
   @Test
   public void testMoveToEmptyOpen() {
     this.initData();
-    List<Card> deck = model.getDeck();
+    // List<Card> deck = model.getDeck();
     model.startGame(model.getDeck(), 4, 3, false);
+    System.out.print(model.getGameState());
     model.move(PileType.CASCADE, 0, 12, PileType.OPEN, 0);
     assertEquals(
             "F1:\n" +

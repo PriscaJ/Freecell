@@ -14,10 +14,15 @@ public class Open extends Pile {
 
   @Override
   public void canPlace(Card c, PileType pt, int destPile) {
-    if (pile.get(destPile).size() == 0) {
-      this.pile.get(destPile).add(c);
+    if (pile.isEmpty()) {
+      System.out.print("Must start game");
     }
-    else {
+    ArrayList<Card> thisPile = pile.get(destPile);
+    System.out.print("Keep going");
+    if (thisPile.isEmpty()) {
+      System.out.print("canReach?");
+      thisPile.add(c);
+    } else {
       throw new IllegalArgumentException("Card already in this Pile");
     }
   }
