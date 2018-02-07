@@ -8,10 +8,10 @@ import java.util.ArrayList;
  */
 public abstract class Pile {
   // public to be accessed by the Model
-  public final PileType id;
+  private final PileType id;
   // not final because they should have the ability to be mutable
-  public ArrayList<ArrayList<Card>> pile;
-  public int numPile;
+  private ArrayList<ArrayList<Card>> pile;
+  private int numPile;
 
   /**
    * Base constructor for piles in freecell.
@@ -66,11 +66,13 @@ public abstract class Pile {
                        PileType goingTo, int goingPile) {
 
     Card movingCard = allPiles.get(fromPile).get(pickCard);
-    if (!canTake(movingCard, allPiles, fromPile)) {
-      throw new IllegalArgumentException("Must choose last card in Pile");
+    if (!canTake(movingCard, allPiles, fromPile ) || !canPlace(movingCard, goingTo, goingPile)) {
+      throw new IllegalArgumentException("Can't place card");
     }
     else {
-      goingTo.pile.canPlace(movingCard, goingTo, goingPile);
+
+
+      // goingTo.pile.canPlace(movingCard, goingTo, goingPile);
     }
   }
 
@@ -90,6 +92,25 @@ public abstract class Pile {
    * @param pt       The type of pile it is going to.
    * @param destPile The exact pile it's going to.
    */
-  public abstract void canPlace(Card c, PileType pt, int destPile);
+  public abstract boolean canPlace(Card c, PileType pt, int destPile);
+
+  // getters for the private fields
+  public ArrayList<ArrayList<Card>> getPiles()  {
+    return pile;
+  }
+
+  public int getPileNum() {
+    return numPile;
+  }
+
+  // setter for the private fields of a pile
+  public void setPiles(ArrayList<ArrayList<Card>> piles) {
+    pile = piles;
+  }
+
+  public void setPileNum(int pileIndex) {
+    numPile = pileIndex;
+  }
+
 
 }

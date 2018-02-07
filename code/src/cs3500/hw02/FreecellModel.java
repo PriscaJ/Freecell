@@ -52,6 +52,7 @@ public class FreecellModel implements FreecellOperations<Card> {
     return true;
   }
 
+  // todo: is this not reall mutating???
   @Override
   public void startGame(List<Card> deck, int numCascadePiles, int numOpenPiles, boolean shuffle)
           throws IllegalArgumentException {
@@ -70,13 +71,12 @@ public class FreecellModel implements FreecellOperations<Card> {
     }
     // Set up the cards in the cascade and open piles
     ArrayList<ArrayList<Card>> currCasPile = new ArrayList<ArrayList<Card>>();
-    ArrayList<Card> currOpenPile = new ArrayList<Card>();
-    cascadePiles.pile = currCasPile;
+    cascadePiles.setPiles(currCasPile);
     // openPiles.pile = currPile;
-    cascadePiles.numPile = numCascadePiles;
-    openPiles.numPile = numOpenPiles;
-    for (int i= 0; i < openPiles.numPile; i++) {
-      openPiles.pile.add(currOpenPile);
+    cascadePiles.setPileNum(numCascadePiles);
+    openPiles.setPileNum(numOpenPiles);
+    for (int i= 0; i < openPiles.getPileNum(); i++) {
+      openPiles.getPiles().add(new ArrayList<Card>());
     }
     cascadePiles.roundRobin(deck);
 
@@ -93,13 +93,13 @@ public class FreecellModel implements FreecellOperations<Card> {
       throw new IllegalArgumentException("Cannot move from a foundation");
     }
     else if (source.equals(PileType.CASCADE)) {
-      cascadePiles.moveHelp(cascadePiles.pile, pileNumber, cardIndex, destination, destPileNumber);
+      cascadePiles.moveHelp(cascadePiles.getPiles(), pileNumber, cardIndex, destination, destPileNumber);
     }
     else if (source.equals(PileType.OPEN)) {
       if (pileNumber > 1) {
         throw new IllegalArgumentException("Only one card on an open pile");
       }
-      openPiles.moveHelp(openPiles.pile, pileNumber, cardIndex, destination, destPileNumber);
+      openPiles.moveHelp(openPiles.getPiles(), pileNumber, cardIndex, destination, destPileNumber);
     }
 
 

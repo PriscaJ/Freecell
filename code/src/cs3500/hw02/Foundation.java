@@ -9,8 +9,8 @@ public class Foundation extends Pile {
   //int numPile;
   public Foundation() {
     super(PileType.FOUNDATION, new ArrayList<ArrayList<Card>>(), 4);
-    for (int i= 0; i < numPile; i++) {
-      pile.add(new ArrayList<Card>());
+    for (int i= 0; i < this.getPileNum(); i++) {
+      this.getPiles().add(new ArrayList<Card>());
     }
   }
 
@@ -21,7 +21,7 @@ public class Foundation extends Pile {
    */
   public boolean allCards() {
     ArrayList<Card> seen = new ArrayList<Card>();
-    for (ArrayList<Card> suitPile : pile) {
+    for (ArrayList<Card> suitPile : this.getPiles()) {
       for (Card c : suitPile) {
         if (seen.contains(c)) {
           throw new RuntimeException("duplicate card");
@@ -34,14 +34,19 @@ public class Foundation extends Pile {
   }
 
   @Override
-  public void canPlace(Card c, PileType pt, int destPile) {
-    Card currLastCard = this.pile.get(destPile).get(this.pile.get(destPile).size() - 1);
+  public boolean canPlace(Card c, PileType pt, int destPile) {
+    boolean canPlaceFlag = false;
+    Card currLastCard = this.getPiles().get(destPile).get(
+            this.getPiles().get(destPile).size() - 1);
 
     if (c.suit.equals(currLastCard.suit)
             && currLastCard.value.value == (c.value.value - 1)) {
-      this.pile.get(destPile).add(c);
-    } else {
+      this.getPiles().get(destPile).add(c);
+      canPlaceFlag = true;
+    }
+    else {
       throw new IllegalArgumentException("Cannot place card");
     }
+    return canPlaceFlag;
   }
 }

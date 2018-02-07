@@ -13,17 +13,20 @@ public class Open extends Pile {
   }
 
   @Override
-  public void canPlace(Card c, PileType pt, int destPile) {
-    if (pile.isEmpty()) {
+  public boolean canPlace(Card c, PileType pt, int destPile) {
+    boolean canPlaceFlag = false;
+    if (getPiles().isEmpty()) {
       System.out.print("Must start game");
     }
-    ArrayList<Card> thisPile = pile.get(destPile);
+    ArrayList<Card> thisPile = getPiles().get(destPile);
     System.out.print("Keep going");
     if (thisPile.isEmpty()) {
       System.out.print("canReach?");
-      thisPile.add(c);
+      canPlaceFlag = true;
+      //thisPile.add(c);
     } else {
       throw new IllegalArgumentException("Card already in this Pile");
     }
+    return canPlaceFlag;
   }
 }
