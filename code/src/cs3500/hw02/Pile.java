@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public abstract class Pile {
   // public to be accessed by the Model
   private final PileType id;
+  private final String idName;
   // not final because they should have the ability to be mutable
   private ArrayList<ArrayList<Card>> pile;
   private int numPile;
@@ -20,8 +21,9 @@ public abstract class Pile {
    * @param pile    The piles in use for the game.
    * @param numPile the number of piles for the type of pile in the game.
    */
-  public Pile(PileType id, ArrayList<ArrayList<Card>> pile, int numPile) {
+  public Pile(PileType id, String idName, ArrayList<ArrayList<Card>> pile, int numPile) {
     this.id = id;
+    this.idName = idName;
     this.pile = pile;
     this.numPile = numPile;
 
@@ -36,7 +38,7 @@ public abstract class Pile {
    */
   public String gameStateHelp() {
     String workString = "";
-    String idName = id.pt;
+    //String idName = id.pt;
     for (int i = 0; i < pile.size(); i++) {
       workString = workString + idName + (i + 1) + ":";
       if (pile.get(i).size() == 0) {

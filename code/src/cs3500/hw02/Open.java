@@ -9,7 +9,7 @@ public class Open extends Pile {
 
   // constructor for Open Piles
   public Open() {
-    super(PileType.OPEN, new ArrayList<ArrayList<Card>>(), 0);
+    super(PileType.OPEN, "O", new ArrayList<ArrayList<Card>>(), 0);
   }
 
   @Override

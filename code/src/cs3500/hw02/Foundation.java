@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Foundation extends Pile {
   //int numPile;
   public Foundation() {
-    super(PileType.FOUNDATION, new ArrayList<ArrayList<Card>>(), 4);
+    super(PileType.FOUNDATION, "F", new ArrayList<ArrayList<Card>>(), 4);
     for (int i= 0; i < this.getPileNum(); i++) {
       this.getPiles().add(new ArrayList<Card>());
     }

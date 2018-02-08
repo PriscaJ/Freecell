@@ -58,6 +58,26 @@ public class FreecellControllerTest {
 
   @Test
   public void falseStartTest() {
+    fc1.playGame(model.getDeck(), model, 2, 3, false);
+    assertEquals("Could not start game.", fc1.getOutput());
+  }
+
+  @Test
+  public void testInvalidIndex() {
+
+  }
+
+  @Test
+  public void testPlayGamePressQ() {
+
+  }
+
+  @Test
+  public void testWrongSpotQ() {
+
+  }
+
+  public void testBadMove() {
 
   }
 }

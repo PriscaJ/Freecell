@@ -10,7 +10,7 @@ public class Cascade extends Pile {
   //int numPiles;
 
   public Cascade() {
-    super(PileType.CASCADE, new ArrayList<ArrayList<Card>>(), 0);
+    super(PileType.CASCADE,"C", new ArrayList<ArrayList<Card>>(), 0);
     //this.numPiles = numPiles;
   }
 
