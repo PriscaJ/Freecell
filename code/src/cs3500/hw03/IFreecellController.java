@@ -23,5 +23,4 @@ public interface IFreecellController<Card> {
                 int numOpens, boolean shuffle);
 
 
-  String getOutput();
 }

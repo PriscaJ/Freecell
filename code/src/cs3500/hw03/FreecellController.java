@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import cs3500.hw02.FreecellOperations;
+import cs3500.hw02.Pile;
+import cs3500.hw02.PileType;
 
 
 /**
@@ -46,22 +48,21 @@ public class FreecellController implements IFreecellController {
     catch (IllegalArgumentException e) {
       appendIOCatch("Could not start game.");
     }
-    Scanner in = new Scanner(this.rd);
+    //Scanner in = new Scanner(this.rd);
 
     // the three steps that must be passed to run the game
     transmitState(model.getGameState());
-    readInput(model, numCascades, numOpens, shuffle);
+    readInput(model);
     wonGame(model);
-
   }
 
-
+  // Appends the gameState from the model.
   private void transmitState(String gameState) {
     appendIOCatch(gameState);
   }
 
-  private void readInput(FreecellOperations model,
-                         int numCascades, int numOpens, boolean shuffle) {
+  // From the readable validates the inputs.
+  private void readInput(FreecellOperations model) {
     if(model.isGameOver()) {
       wonGame(model);
     }
@@ -69,82 +70,108 @@ public class FreecellController implements IFreecellController {
     Scanner in = new Scanner(this.rd);
 
     // tokens to look for;
-    String src = null;
+    /**String src = null;
     int cardIndex = -1;
-    String dest = null;
+    String dest = null; **/
 
-    /**String srcPileLetter = null;
+    PileType srcPileLetter = null;
     int srcPileNum = -1;
     int cardIndex = -1;
-    String destPileLetter = null;
-    int destPileNum = -1; **/
+    PileType destPileLetter = null;
+    int destPileNum = -1;
 
     while (in.hasNext()) {
       String curr = in.next();
-      // check what token we need and if it's the src or dest split
-      if (src == null) {
-        splitToken(curr);
+
+      if (curr.equals("Q") || curr.equals("q")) {
+        appendIOCatch("Game quit prematurely.");
+      }
+
+      // check which token is needed
+      if (srcPileLetter == null && srcPileNum == -1) {
+        if (curr.length() == 1) {
+          srcPileLetter = this.validPile(curr.substring(0, 1));
+        }
+        else {
+          srcPileLetter = this.validPile(curr.substring(0, 1));
+          // todo: determine which pile it came from or does the model take care of that?
+          srcPileNum = this.validIndex(curr.substring(1));
+        }
       }
       else if (cardIndex == -1) {
-        validIndex(curr);
+        cardIndex = this.validIndex(curr);
       }
 
-      else if (dest == null) {
-        splitToken(curr);
+      else if (destPileLetter == null && destPileNum == -1) {
+        if (curr.length() == 1) {
+          destPileLetter = this.validPile(curr.substring(0, 1));
+        }
+        else {
+          destPileLetter = this.validPile(curr.substring(0, 1));
+          destPileNum = this.validIndex(curr.substring(1));
+        }
       }
-
       // check if it is valid
+      else {
+        try {
+          model.move(srcPileLetter, srcPileNum, cardIndex, destPileLetter, destPileNum);
+          // reset for next move
+          srcPileLetter = null;
+          srcPileNum = -1;
+          cardIndex = -1;
+          destPileLetter = null;
+          destPileNum = -1;
+        }
+        catch (IllegalArgumentException e) {
+          appendIOCatch("Could not start game.");
+          // reset for another move
+          srcPileLetter = null;
+          srcPileNum = -1;
+          cardIndex = -1;
+          destPileLetter = null;
+          destPileNum = -1;
+        }
+      }
 
     }
-  }
-
-  private void splitToken(String token) {
-
   }
 
   // checks if the index is the correct in the pile
   private int validIndex(String index) {
-    try {
-      if (Integer.parseInt(index) >= 1) {
-        return Integer.parseInt(index);
-      }
-      else {
-        this.appendIOCatch("Re-enter Index\n");
-      }
-    } catch (NumberFormatException num) {
+    int friendlyIndex = Integer.parseInt(index) + 1;
+    if (friendlyIndex < 1) {
       this.appendIOCatch("Re-enter Index\n");
+      return -1;
     }
-    return -1;
+    else {
+      // todo: check if there are enough indices or no?
+      return friendlyIndex;
+
+    }
   }
 
   // verifies the source or the destination pile as valid input
-  /**private PileType validPile(String PileLetter) {
-    Character isPile = pile.charAt(0);
+  private PileType validPile(String pileLetter) {
     PileType pickPile = null;
 
-    switch (isPile) {
-      case 'C':
+    switch (pileLetter) {
+      case "C":
         pickPile = PileType.CASCADE;
         break;
-      case 'F':
+      case "F":
         pickPile = PileType.FOUNDATION;
         break;
-      case 'O':
+      case "O":
         pickPile = PileType.OPEN;
         break;
-      case 'Q':
-        tryCatch("Game quit prematurely.");
-        break;
-      case 'q':
-        this.tryCatch("Game quit prematurely.");
-        break;
       default:
-        this.tryCatch("Re-enter Pile Type\n");
+        appendIOCatch("Re-enter Pile Type\n");
         break;
     }
     return pickPile;
-  } **/
+  }
 
+  // determines if the game is complete
   private void wonGame(FreecellOperations model) {
     if (!model.isGameOver()) {
       appendIOCatch("Game not over...");
@@ -152,10 +179,6 @@ public class FreecellController implements IFreecellController {
     else {
       appendIOCatch("\nGame over");
     }
-  }
-
-  public String getOutput() {
-    return ap.toString();
   }
 
   // sends out the try catch condition
