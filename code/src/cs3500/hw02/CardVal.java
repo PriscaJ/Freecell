@@ -9,8 +9,8 @@ public enum CardVal {
   eight(8, "8"), nine(9, "9"), ten(10, "10"), jack(11, "J"), queen(12, "Q"), king(13, "K");
 
 
-  public final int value;
-  public final String val;
+  private final int value;
+  private final String val;
 
   // the constructor or the values in a card
   CardVal(int value, String val) {
@@ -25,6 +25,10 @@ public enum CardVal {
    */
   public String toString() {
     return this.val;
+  }
+
+  public int getNumVal() {
+    return value;
   }
 
 

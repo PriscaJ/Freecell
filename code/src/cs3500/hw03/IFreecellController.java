@@ -4,6 +4,10 @@ import java.util.List;
 
 import cs3500.hw02.FreecellOperations;
 
+/**
+ * an interface to abstract the behavior of a controller
+ * @param <Card> parametrized over a Card
+ */
 public interface IFreecellController<Card> {
 
   /**

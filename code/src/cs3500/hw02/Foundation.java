@@ -40,7 +40,7 @@ public class Foundation extends Pile {
             this.getPiles().get(destPile).size() - 1);
 
     if (c.suit.equals(currLastCard.suit)
-            && currLastCard.value.value == (c.value.value - 1)) {
+            && currLastCard.value.getNumVal() == (c.value.getNumVal() - 1)) {
       this.getPiles().get(destPile).add(c);
       canPlaceFlag = true;
     }

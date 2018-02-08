@@ -70,8 +70,7 @@ public abstract class Pile {
       throw new IllegalArgumentException("Can't place card");
     }
     else {
-
-
+      // take the cards with the neccessary
       // goingTo.pile.canPlace(movingCard, goingTo, goingPile);
     }
   }
