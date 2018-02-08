@@ -112,6 +112,8 @@ public class FreecellController implements IFreecellController {
         }
       }
       // check if it is valid
+      //validMove(model, srcPileLetter, srcPileNum, cardIndex, destPileLetter, destPileNum);
+
       else {
         try {
           model.move(srcPileLetter, srcPileNum, cardIndex, destPileLetter, destPileNum);
@@ -123,7 +125,7 @@ public class FreecellController implements IFreecellController {
           destPileNum = -1;
         }
         catch (IllegalArgumentException e) {
-          appendIOCatch("Could not start game.");
+          appendIOCatch("Invalid move. Try again." + e.getMessage());
           // reset for another move
           srcPileLetter = null;
           srcPileNum = -1;
@@ -135,6 +137,7 @@ public class FreecellController implements IFreecellController {
 
     }
   }
+
 
   // checks if the index is the correct in the pile
   private int validIndex(String index) {

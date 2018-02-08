@@ -22,5 +22,4 @@ public interface IFreecellController<Card> {
   void playGame(List<Card> deck, FreecellOperations<Card> model, int numCascades,
                 int numOpens, boolean shuffle);
 
-
 }
