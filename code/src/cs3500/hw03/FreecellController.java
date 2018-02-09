@@ -1,13 +1,11 @@
 package cs3500.hw03;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 import cs3500.hw02.FreecellOperations;
-import cs3500.hw02.Pile;
 import cs3500.hw02.PileType;
 
 
@@ -152,11 +150,14 @@ public class FreecellController implements IFreecellController {
   private int validIndex(String index) {
     try {
       int friendlyIndex = Integer.parseInt(index) + 1;
-      if (friendlyIndex >= 1) {
+      if (friendlyIndex >= 1
+              // && friendlyIndex.
+              ) {
         return friendlyIndex;
       }
       else {
-        this.appendIOCatch("Re-enter Index\n");
+        // when the index is out of bounds
+        this.appendIOCatch("Game quit prematurely.");
       }
     }
     catch (NumberFormatException num) {
@@ -188,14 +189,15 @@ public class FreecellController implements IFreecellController {
 
   // determines if the game is complete
   private void wonGame(FreecellOperations model) {
+    if (model.getGameState().equals("")) {
+      appendIOCatch("");
+      return;
+    }
     if (!model.isGameOver()) {
-      appendIOCatch("Game not over...");
+      appendIOCatch("Game quit prematurely.");
       return;
     }
-    else {
-      // appendIOCatch("\nGame over");
-      return;
-    }
+    ;
   }
 
   // sends out the try catch condition

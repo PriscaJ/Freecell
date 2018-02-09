@@ -9,7 +9,7 @@ public class Foundation extends Pile {
   //int numPile;
 
   /**
-   * Constructor for foundation piles
+   * Constructor for foundation piles.
    */
   public Foundation() {
     super(PileType.FOUNDATION, "F", new ArrayList<ArrayList<Card>>(), 4);
@@ -38,7 +38,7 @@ public class Foundation extends Pile {
   }
 
   @Override
-  public boolean canPlace(Card c, PileType pt, int destPile) {
+  public boolean canPlace(Card c, int destPile) {
     boolean canPlaceFlag = false;
     Card currLastCard = this.getPiles().get(destPile).get(
             this.getPiles().get(destPile).size() - 1);

@@ -64,26 +64,36 @@ public abstract class Pile {
   /**
    * A helper to determine if a card can be moved.
    */
-  public void moveHelp(ArrayList<ArrayList<Card>> allPiles, int fromPile, int pickCard,
-                       PileType goingTo, int goingPile) {
+  //public abstract void  moveHelp(Card moveCard, int index);
+
+  /**
+  public void moveHelp(ArrayList<ArrayList<Card>> FromPiles, int fromPile, int pickCard,
+                       Piletype goingTo, int goingPile) {
 
     Card movingCard = allPiles.get(fromPile).get(pickCard);
-    if (!canTake(movingCard, allPiles, fromPile ) || !canPlace(movingCard, goingTo, goingPile)) {
-      throw new IllegalArgumentException("Can't place card");
+
+    if (!canTake(movingCard, allPiles, fromPile )) {
+      if (!goingTo.canPlace(movingCard, goingTo, goingPile)) {
+        throw new IllegalArgumentException("Can't place card");
+      }
     }
     else {
       // take the cards with the neccessary
-
+      //id = goingTo
+      if (goingTo.equals(id)) {
+        pile.get(goingPile).add(movingCard);
+      }
       // goingTo.pile.canPlace(movingCard, goingTo, goingPile);
     }
   }
+   **/
 
   /**
    * Is it possible to take a card from this pile. i.e. last card in pile
    *
    * @return boolean if it is the last card in the pile.
    */
-  private boolean canTake(Card c, ArrayList<ArrayList<Card>> allPiles, int fromPile) {
+  public boolean canTake(Card c, ArrayList<ArrayList<Card>> allPiles, int fromPile) {
     return c.equals(allPiles.get(fromPile).get(allPiles.get(fromPile).size() - 1));
   }
 
@@ -91,10 +101,13 @@ public abstract class Pile {
    * Can a card be placed in this pile.
    *
    * @param c        The card that will be placed.
-   * @param pt       The type of pile it is going to.
    * @param destPile The exact pile it's going to.
    */
-  public abstract boolean canPlace(Card c, PileType pt, int destPile);
+  public abstract boolean canPlace(Card c, int destPile);
+
+  //private Pile changePile(PileType newPile) {
+  //  return Pile
+  //}
 
   // getters for the private fields
   public ArrayList<ArrayList<Card>> getPiles()  {

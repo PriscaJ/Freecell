@@ -13,7 +13,7 @@ public class Open extends Pile {
   }
 
   @Override
-  public boolean canPlace(Card c, PileType pt, int destPile) {
+  public boolean canPlace(Card c, int destPile) {
     boolean canPlaceFlag = false;
     if (getPiles().isEmpty()) {
       System.out.print("Must start game");

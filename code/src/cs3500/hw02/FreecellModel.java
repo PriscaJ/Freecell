@@ -78,6 +78,7 @@ public class FreecellModel implements FreecellOperations<Card> {
     for (int i = 0; i < openPiles.getPileNum(); i++) {
       openPiles.getPiles().add(new ArrayList<Card>());
     }
+
     cascadePiles.roundRobin(deck);
 
   }
@@ -92,16 +93,45 @@ public class FreecellModel implements FreecellOperations<Card> {
     if (source.equals(PileType.FOUNDATION)) {
       throw new IllegalArgumentException("Cannot move from a foundation");
     }
-    else if (source.equals(PileType.CASCADE)) {
-      cascadePiles.moveHelp(cascadePiles.getPiles(), pileNumber, cardIndex, destination, destPileNumber);
+
+    // the variable from where the card is moving based on what piletype it is
+    Card movingCard = null;
+    Pile srcPile = null;
+    Pile destPile = null;
+
+    // checks where it is coming from
+    if (source.equals(PileType.CASCADE)) {
+      movingCard = cascadePiles.getPiles().get(pileNumber).get(cardIndex);
+      srcPile = cascadePiles;
     }
     else if (source.equals(PileType.OPEN)) {
-      if (pileNumber > 1) {
-        throw new IllegalArgumentException("Only one card on an open pile");
-      }
-      openPiles.moveHelp(openPiles.getPiles(), pileNumber, cardIndex, destination, destPileNumber);
+      movingCard = openPiles.getPiles().get(pileNumber).get(cardIndex);
+      srcPile = openPiles;
     }
 
+    // check if it is valid to take the card
+    if (!srcPile.canTake(movingCard, srcPile.getPiles(), pileNumber)) {
+      throw new IllegalArgumentException("Can't place card");
+    }
+
+    // see where the card is going to
+    //boolean answer;
+    if (destination.equals(PileType.CASCADE)) {
+      cascadePiles.canPlace(movingCard, destPileNumber);
+
+    }
+    else if (destination.equals(PileType.OPEN)) {
+      openPiles.canPlace(movingCard, destPileNumber);
+      destPile = openPiles;
+    }
+    else if (destination.equals(PileType.FOUNDATION)) {
+      foundationPiles.canPlace(movingCard, destPileNumber);
+      destPile = foundationPiles;
+    }
+
+    // mutate to make the move
+    srcPile.getPiles().get(pileNumber).remove(cardIndex);
+    destPile.getPiles().get(destPileNumber).add(movingCard);
 
   }
 
@@ -114,6 +144,13 @@ public class FreecellModel implements FreecellOperations<Card> {
 
   @Override
   public String getGameState() {
+    try {
+      // todo check if start game throws an exception
+      // invalid startGame call ==> ""
+    }
+    catch (IllegalArgumentException e) {
+      return "";
+    }
     String workString = "";
     String trim = "";
     if (!isGameOver()) {
@@ -124,4 +161,8 @@ public class FreecellModel implements FreecellOperations<Card> {
     }
     return trim;
   }
+
+
+
+  //private Exception gameStateHelp();
 }

@@ -33,7 +33,7 @@ public class Cascade extends Pile {
   }
 
   @Override
-  public boolean canPlace(Card c, PileType pt, int destPile) {
+  public boolean canPlace(Card c, int destPile) {
     boolean canPlaceFlag = false;
     Card currLastCard =
             this.getPiles().get(destPile).get(this.getPiles().get(destPile).size() - 1);
@@ -54,7 +54,7 @@ public class Cascade extends Pile {
       if (c.suit.sc.equals(Suit.SuitColor.red)
               && currLastCard.value.getNumVal() == (c.value.getNumVal() - 1)) {
         this.getPiles().get(destPile).add(c);
-        canPlaceFlag = true;
+        //canPlaceFlag = true;
       }
       else {
         throw new IllegalArgumentException("Cannot place card");

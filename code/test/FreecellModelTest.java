@@ -95,6 +95,32 @@ public class FreecellModelTest {
   }
 
   @Test
+  public void testMoveToFoundationPilesFromOpen() {
+    this.initData();
+
+    model.startGame(model.getDeck(), 6, 4, false);
+    model.move(PileType.CASCADE, 3, 8, PileType.OPEN, 0);
+    model.move(PileType.CASCADE, 3, 7, PileType.OPEN, 1);
+    model.move(PileType.CASCADE, 3, 6, PileType.OPEN, 2);
+    model.move(PileType.OPEN, 2, 0, PileType.FOUNDATION, 0);
+    assertEquals(
+            "F1: A♠\n" +
+            "F2:\n" +
+            "F3:\n" +
+            "F4:\n" +
+            "O1: K♠\n" +
+            "O2: 7♠\n" +
+            "O3:\n" +
+            "O4:\n" +
+            "C1: A♣, 7♣, K♣, 6♦, Q♦, 5♥, J♥, 4♠, 10♠\n" +
+            "C2: 2♣, 8♣, A♦, 7♦, K♦, 6♥, Q♥, 5♠, J♠\n" +
+            "C3: 3♣, 9♣, 2♦, 8♦, A♥, 7♥, K♥, 6♠, Q♠\n" +
+            "C4: 4♣, 10♣, 3♦, 9♦, 2♥, 8♥\n" +
+            "C5: 5♣, J♣, 4♦, 10♦, 3♥, 9♥, 2♠, 8♠\n" +
+            "C6: 6♣, Q♣, 5♦, J♦, 4♥, 10♥, 3♠, 9♠", model.getGameState());
+  }
+
+  @Test
   public void testGameState() {
     this.initData();
 
@@ -138,8 +164,10 @@ public class FreecellModelTest {
     String stage1 = model.getGameState();
     model.startGame(model.getDeck(), 4, 2, true);
     String stage2 = model.getGameState();
+    String stage3 = model.getGameState();
 
     assertNotEquals(stage1, stage2);
+    assertEquals(true, stage2.equals(stage3));
   }
 
   @Test
