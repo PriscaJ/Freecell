@@ -150,9 +150,7 @@ public class FreecellController implements IFreecellController {
   private int validIndex(String index) {
     try {
       int friendlyIndex = Integer.parseInt(index) + 1;
-      if (friendlyIndex >= 1
-              // && friendlyIndex.
-              ) {
+      if (friendlyIndex >= 1) {
         return friendlyIndex;
       }
       else {
@@ -194,10 +192,9 @@ public class FreecellController implements IFreecellController {
       return;
     }
     if (!model.isGameOver()) {
-      appendIOCatch("Game over.");
+      appendIOCatch("Game quit prematurely.");
       return;
     }
-    ;
   }
 
   // sends out the try catch condition

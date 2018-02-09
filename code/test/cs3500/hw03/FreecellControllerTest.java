@@ -13,7 +13,7 @@ import cs3500.hw02.Card;
 import cs3500.hw02.FreecellModel;
 import cs3500.hw02.FreecellOperations;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class FreecellControllerTest {
 
@@ -21,6 +21,9 @@ public class FreecellControllerTest {
   FreecellOperations<Card> model;
 
   @Before
+  /**
+   * method that initializes
+   */
   public void initData() {
     //FreecellController fc1 = new FreecellController()
 

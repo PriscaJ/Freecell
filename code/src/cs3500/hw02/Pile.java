@@ -62,33 +62,6 @@ public abstract class Pile {
   }
 
   /**
-   * A helper to determine if a card can be moved.
-   */
-  //public abstract void  moveHelp(Card moveCard, int index);
-
-  /**
-  public void moveHelp(ArrayList<ArrayList<Card>> FromPiles, int fromPile, int pickCard,
-                       Piletype goingTo, int goingPile) {
-
-    Card movingCard = allPiles.get(fromPile).get(pickCard);
-
-    if (!canTake(movingCard, allPiles, fromPile )) {
-      if (!goingTo.canPlace(movingCard, goingTo, goingPile)) {
-        throw new IllegalArgumentException("Can't place card");
-      }
-    }
-    else {
-      // take the cards with the neccessary
-      //id = goingTo
-      if (goingTo.equals(id)) {
-        pile.get(goingPile).add(movingCard);
-      }
-      // goingTo.pile.canPlace(movingCard, goingTo, goingPile);
-    }
-  }
-   **/
-
-  /**
    * Is it possible to take a card from this pile. i.e. last card in pile
    *
    * @return boolean if it is the last card in the pile.

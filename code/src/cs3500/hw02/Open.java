@@ -16,7 +16,7 @@ public class Open extends Pile {
   public boolean canPlace(Card c, int destPile) {
     boolean canPlaceFlag = false;
     if (getPiles().isEmpty()) {
-      throw new RuntimeException("Must start game");
+      System.out.print("Must start game");
     }
     ArrayList<Card> thisPile = getPiles().get(destPile);
     if (thisPile.isEmpty()) {
