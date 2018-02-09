@@ -145,20 +145,17 @@ public class FreecellModel implements FreecellOperations<Card> {
 
   @Override
   public String getGameState() {
-    try {
-      // todo check if start game throws an exception
-      // invalid startGame call ==> ""
-    }
-    catch (IllegalArgumentException e) {
-      return "";
-    }
     String workString = "";
     String trim = "";
-    if (!isGameOver()) {
-      workString = foundationPiles.gameStateHelp()
-              + openPiles.gameStateHelp() + cascadePiles.gameStateHelp();
-      trim = workString.trim();
-
+    if (cascadePiles.getPiles().size() == 0) {
+      return workString;
+    }
+    else {
+      if (!isGameOver()) {
+        workString = foundationPiles.gameStateHelp()
+                + openPiles.gameStateHelp() + cascadePiles.gameStateHelp();
+        trim = workString.trim();
+      }
     }
     return trim;
   }
