@@ -12,16 +12,21 @@ import cs3500.hw02.PileType;
 
 
 /**
- * Class representing the controller for freecell
+ * Class representing the controller for freecell.
  */
 public class FreecellController implements IFreecellController {
   private final Readable rd;
   private final Appendable ap;
 
+  /**
+   * Constructs the controller for freecell.
+   * @param rd The readable to take in user input.
+   * @param ap The appendale object that sends output to the user.
+   */
   public FreecellController(Readable rd, Appendable ap) {
 
     if (rd == null || ap == null) {
-      throw new IllegalStateException("Readable and/or Appendable can not be null");
+      throw new IllegalArgumentException("Readable and/or Appendable can not be null");
     }
     this.rd = rd;
     this.ap = ap;
@@ -36,7 +41,9 @@ public class FreecellController implements IFreecellController {
     }
     // are there a valid amount of cards in the piles
     if (numCascades < 4 || numOpens < 1) {
-      throw new IllegalArgumentException("Not enough piles");
+      appendIOCatch("Could not start game.");
+      return ;
+      //throw new IllegalArgumentException("Not enough piles");
     }
     if (shuffle) {
       Collections.shuffle(deck);
@@ -44,16 +51,14 @@ public class FreecellController implements IFreecellController {
 
     try {
       model.startGame(deck, numCascades, numOpens, shuffle);
+      // the three steps that must be passed to run the game
+      transmitState(model.getGameState());
+      readInput(model);
+      wonGame(model);
     }
     catch (IllegalArgumentException e) {
       appendIOCatch("Could not start game.");
     }
-    //Scanner in = new Scanner(this.rd);
-
-    // the three steps that must be passed to run the game
-    transmitState(model.getGameState());
-    readInput(model);
-    wonGame(model);
   }
 
   // Appends the gameState from the model.
@@ -63,16 +68,11 @@ public class FreecellController implements IFreecellController {
 
   // From the readable validates the inputs.
   private void readInput(FreecellOperations model) {
-    if(model.isGameOver()) {
+    if (model.isGameOver()) {
       wonGame(model);
     }
 
     Scanner in = new Scanner(this.rd);
-
-    // tokens to look for;
-    /**String src = null;
-    int cardIndex = -1;
-    String dest = null; **/
 
     PileType srcPileLetter = null;
     int srcPileNum = -1;
@@ -96,10 +96,16 @@ public class FreecellController implements IFreecellController {
           srcPileLetter = this.validPile(curr.substring(0, 1));
           // todo: determine which pile it came from or does the model take care of that?
           srcPileNum = this.validIndex(curr.substring(1));
+          if (srcPileNum == -1) {
+            return;
+          }
         }
       }
       else if (cardIndex == -1) {
         cardIndex = this.validIndex(curr);
+        if (cardIndex == -1) {
+          return;
+        }
       }
 
       else if (destPileLetter == null && destPileNum == -1) {
@@ -109,6 +115,9 @@ public class FreecellController implements IFreecellController {
         else {
           destPileLetter = this.validPile(curr.substring(0, 1));
           destPileNum = this.validIndex(curr.substring(1));
+          if (destPileNum == -1) {
+            return;
+          }
         }
       }
       // check if it is valid
@@ -141,16 +150,19 @@ public class FreecellController implements IFreecellController {
 
   // checks if the index is the correct in the pile
   private int validIndex(String index) {
-    int friendlyIndex = Integer.parseInt(index) + 1;
-    if (friendlyIndex < 1) {
+    try {
+      int friendlyIndex = Integer.parseInt(index) + 1;
+      if (friendlyIndex >= 1) {
+        return friendlyIndex;
+      }
+      else {
+        this.appendIOCatch("Re-enter Index\n");
+      }
+    }
+    catch (NumberFormatException num) {
       this.appendIOCatch("Re-enter Index\n");
-      return -1;
     }
-    else {
-      // todo: check if there are enough indices or no?
-      return friendlyIndex;
-
-    }
+    return -1;
   }
 
   // verifies the source or the destination pile as valid input
@@ -178,9 +190,11 @@ public class FreecellController implements IFreecellController {
   private void wonGame(FreecellOperations model) {
     if (!model.isGameOver()) {
       appendIOCatch("Game not over...");
+      return;
     }
     else {
-      appendIOCatch("\nGame over");
+      // appendIOCatch("\nGame over");
+      return;
     }
   }
 
@@ -188,8 +202,12 @@ public class FreecellController implements IFreecellController {
   private void appendIOCatch(String message) {
     try {
       this.ap.append(message);
-    } catch (IOException io) {
-      // do nothing
+    }
+    catch (IOException io) {
+      io.printStackTrace();
+    }
+    catch (NullPointerException missingInit) {
+      throw new IllegalStateException("Game not properly initialized for output. Fatal error.");
     }
   }
 

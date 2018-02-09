@@ -75,7 +75,7 @@ public class FreecellModel implements FreecellOperations<Card> {
     // openPiles.pile = currPile;
     cascadePiles.setPileNum(numCascadePiles);
     openPiles.setPileNum(numOpenPiles);
-    for (int i= 0; i < openPiles.getPileNum(); i++) {
+    for (int i = 0; i < openPiles.getPileNum(); i++) {
       openPiles.getPiles().add(new ArrayList<Card>());
     }
     cascadePiles.roundRobin(deck);

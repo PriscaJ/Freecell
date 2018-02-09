@@ -34,14 +34,14 @@ public class FreecellControllerTest {
   }
 
 
-  @Test(expected = IllegalStateException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void nullReadableTest() {
     OutputStream out = new ByteArrayOutputStream();
     PrintStream ps = new PrintStream(out);
     FreecellController cont = new FreecellController(null, ps);
   }
 
-  @Test(expected = IllegalStateException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void nullAppendableTest() {
     StringReader sr = new StringReader("");
     FreecellController fcont = new FreecellController(sr, null);
@@ -63,17 +63,18 @@ public class FreecellControllerTest {
     PrintStream ps = new PrintStream(out);
     StringReader sr = new StringReader("");
 
-    fc1.playGame(model.getDeck(), model, 2, 3, false);
+    FreecellController fc = new FreecellController(sr, ps);
+    fc.playGame(model.getDeck(), model, 2, 3, false);
     assertEquals("Could not start game.", out.toString());
   }
 
   @Test
   public void testInvalidIndex() {
 
-    String input = "C1 & F2";
+    String input = "C1 R F2";
     OutputStream out = new ByteArrayOutputStream();
     PrintStream ps = new PrintStream(out);
-    StringReader sr = new StringReader("");
+    StringReader sr = new StringReader(input);
 
     FreecellModel model = new FreecellModel();
     List<Card> d = model.getDeck();
