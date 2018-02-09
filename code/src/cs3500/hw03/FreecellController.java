@@ -194,7 +194,7 @@ public class FreecellController implements IFreecellController {
       return;
     }
     if (!model.isGameOver()) {
-      appendIOCatch("Game quit prematurely.");
+      appendIOCatch("Game over.");
       return;
     }
     ;

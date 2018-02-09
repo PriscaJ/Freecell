@@ -5,7 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Class that represents the model for the Freecell game.
+ * Class that represents the model for the Freecell game,
+ * containing the three types of piles (Open, Foundation, Cascade) to manipulate during a game.
  */
 public class FreecellModel implements FreecellOperations<Card> {
   private Cascade cascadePiles;

@@ -40,16 +40,19 @@ public class Foundation extends Pile {
   @Override
   public boolean canPlace(Card c, int destPile) {
     boolean canPlaceFlag = false;
-    Card currLastCard = this.getPiles().get(destPile).get(
-            this.getPiles().get(destPile).size() - 1);
-
-    if (c.suit.equals(currLastCard.suit)
-            && currLastCard.value.getNumVal() == (c.value.getNumVal() - 1)) {
-      this.getPiles().get(destPile).add(c);
+    if (getPiles().get(destPile).isEmpty()) {
       canPlaceFlag = true;
-    }
-    else {
-      throw new IllegalArgumentException("Cannot place card");
+    } else {
+      Card currLastCard = this.getPiles().get(destPile).get(
+              this.getPiles().get(destPile).size() - 1);
+
+      if (c.suit.equals(currLastCard.suit)
+              && currLastCard.value.getNumVal() == (c.value.getNumVal() - 1)) {
+        this.getPiles().get(destPile).add(c);
+        canPlaceFlag = true;
+      } else {
+        throw new IllegalArgumentException("Cannot place card");
+      }
     }
     return canPlaceFlag;
   }

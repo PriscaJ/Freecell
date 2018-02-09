@@ -62,7 +62,7 @@ public class FreecellModelTest {
     this.initData();
     // List<Card> deck = model.getDeck();
     model.startGame(model.getDeck(), 4, 3, false);
-    System.out.print(model.getGameState());
+    //System.out.print(model.getGameState());
     model.move(PileType.CASCADE, 0, 12, PileType.OPEN, 0);
     assertEquals(
             "F1:\n" +
@@ -77,6 +77,7 @@ public class FreecellModelTest {
                     "C3: 3♣, 7♣, J♣, 2♦, 6♦, 10♦, A♥, 5♥, 9♥, K♥, 4♠, 8♠, Q♠\n" +
                     "C4: 4♣, 8♣, Q♣, 3♦, 7♦, J♦, 2♥, 6♥, 10♥, A♠, 5♠, 9♠, K♠",
             model.getGameState());
+    System.out.print(model.getGameState());
 
 
     // ignore vvvvvv
@@ -118,6 +119,7 @@ public class FreecellModelTest {
             "C4: 4♣, 10♣, 3♦, 9♦, 2♥, 8♥\n" +
             "C5: 5♣, J♣, 4♦, 10♦, 3♥, 9♥, 2♠, 8♠\n" +
             "C6: 6♣, Q♣, 5♦, J♦, 4♥, 10♥, 3♠, 9♠", model.getGameState());
+    System.out.print(model.getGameState());
   }
 
   @Test
