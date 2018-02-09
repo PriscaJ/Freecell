@@ -155,7 +155,7 @@ public class FreecellController implements IFreecellController {
       }
       else {
         // when the index is out of bounds
-        this.appendIOCatch("Game quit prematurely.");
+        this.appendIOCatch("Game over.");
       }
     }
     catch (NumberFormatException num) {

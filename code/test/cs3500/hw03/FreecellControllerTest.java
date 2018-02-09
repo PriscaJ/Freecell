@@ -20,10 +20,10 @@ public class FreecellControllerTest {
   IFreecellController fc1;
   FreecellOperations<Card> model;
 
-  @Before
   /**
-   * method that initializes
+   * Method that initializes test data.
    */
+  @Before
   public void initData() {
     //FreecellController fc1 = new FreecellController()
 
