@@ -1,4 +1,4 @@
-package cs3500.hw03;
+
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +13,8 @@ import cs3500.hw02.Card;
 import cs3500.hw02.FreecellModel;
 import cs3500.hw02.FreecellOperations;
 import cs3500.hw02.PileType;
+import cs3500.hw03.FreecellController;
+import cs3500.hw03.IFreecellController;
 
 import static org.junit.Assert.assertEquals;
 

@@ -28,4 +28,6 @@ public class Open extends Pile {
     }
     return canPlaceFlag;
   }
+
+
 }

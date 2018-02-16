@@ -9,9 +9,10 @@ import java.util.List;
  * containing the three types of piles (Open, Foundation, Cascade) to manipulate during a game.
  */
 public class FreecellModel implements FreecellOperations<Card> {
-  private Cascade cascadePiles;
-  private Foundation foundationPiles;
-  private Open openPiles;
+  // DOCUMENTATION: protected so that it can be passed to the child class
+  protected Cascade cascadePiles;
+  protected Foundation foundationPiles;
+  protected Open openPiles;
 
   /**
    * Constructor for the model in freecell.

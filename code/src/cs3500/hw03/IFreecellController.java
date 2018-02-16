@@ -1,5 +1,6 @@
 package cs3500.hw03;
 
+import java.io.IOException;
 import java.util.List;
 
 import cs3500.hw02.FreecellOperations;
@@ -20,6 +21,6 @@ public interface IFreecellController<Card> {
    * @param shuffle     determines if the deck has been shuffled or not
    */
   void playGame(List<Card> deck, FreecellOperations<Card> model, int numCascades,
-                int numOpens, boolean shuffle);
+                int numOpens, boolean shuffle) throws IOException, IllegalArgumentException;
 
 }

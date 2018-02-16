@@ -32,7 +32,8 @@ public class FreecellController implements IFreecellController {
 
   @Override
   public void playGame(List deck, FreecellOperations model,
-                       int numCascades, int numOpens, boolean shuffle) {
+                       int numCascades, int numOpens, boolean shuffle)
+          throws IOException, IllegalArgumentException {
     // check if the inputs ae null (not depending on the model, must chack on its own
     if (deck == null || model == null) {
       throw new IllegalArgumentException("model and or deck can't be null");
@@ -60,12 +61,12 @@ public class FreecellController implements IFreecellController {
   }
 
   // Appends the gameState from the model.
-  private void transmitState(String gameState) {
+  private void transmitState(String gameState)throws IOException {
     appendIOCatch(gameState);
   }
 
   // From the readable validates the inputs.
-  private void readInput(FreecellOperations model) {
+  private void readInput(FreecellOperations model) throws IOException {
     if (model.isGameOver()) {
       wonGame(model);
     }
@@ -147,7 +148,7 @@ public class FreecellController implements IFreecellController {
 
 
   // checks if the index is the correct in the pile
-  private int validIndex(String index) {
+  private int validIndex(String index) throws IOException {
     try {
       int friendlyIndex = Integer.parseInt(index) + 1;
       if (friendlyIndex >= 1) {
@@ -165,7 +166,7 @@ public class FreecellController implements IFreecellController {
   }
 
   // verifies the source or the destination pile as valid input
-  private PileType validPile(String pileLetter) {
+  private PileType validPile(String pileLetter) throws IOException {
     PileType pickPile = null;
 
     switch (pileLetter) {
@@ -186,7 +187,7 @@ public class FreecellController implements IFreecellController {
   }
 
   // determines if the game is complete
-  private void wonGame(FreecellOperations model) {
+  private void wonGame(FreecellOperations model) throws IOException {
     if (model.getGameState().equals("")) {
       appendIOCatch("");
       return;
@@ -198,16 +199,8 @@ public class FreecellController implements IFreecellController {
   }
 
   // sends out the try catch condition
-  private void appendIOCatch(String message) {
-    try {
+  private void appendIOCatch(String message) throws IOException {
       this.ap.append(message);
-    }
-    catch (IOException io) {
-      io.printStackTrace();
-    }
-    catch (NullPointerException missingInit) {
-      throw new IllegalStateException("Game not properly initialized for output. Fatal error.");
-    }
   }
 
 }

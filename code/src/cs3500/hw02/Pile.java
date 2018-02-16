@@ -101,4 +101,16 @@ public abstract class Pile {
   }
 
 
+  // counts the number of intermediate slots avaliable
+  public int intermediateHelp() {
+    int count = 0;
+    for (ArrayList<Card> pile: getPiles()) {
+      if (pile.isEmpty()) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+
 }
