@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.StringReader;
@@ -54,17 +55,17 @@ public class FreecellControllerTest {
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void nullDeckTest() {
+  public void nullDeckTest() throws IOException {
     fc1.playGame(null, model, 4, 3, false);
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void nullModelTest() {
+  public void nullModelTest() throws IOException {
     fc1.playGame(model.getDeck(), null, 4, 3, false);
   }
 
   @Test
-  public void falseStartTest() {
+  public void falseStartTest() throws IOException {
     OutputStream out = new ByteArrayOutputStream();
     PrintStream ps = new PrintStream(out);
     StringReader sr = new StringReader("");
@@ -75,7 +76,7 @@ public class FreecellControllerTest {
   }
 
   @Test
-  public void testInvalidIndex() {
+  public void testInvalidIndex() throws IOException{
 
     String input = "C1 R F2";
     OutputStream out = new ByteArrayOutputStream();
@@ -93,7 +94,7 @@ public class FreecellControllerTest {
   }
 
   @Test
-  public void testPlayGamePressQ() {
+  public void testPlayGamePressQ() throws IOException {
     String input = "Q";
     OutputStream out = new ByteArrayOutputStream();
     StringReader sr = new StringReader(input);
@@ -121,7 +122,7 @@ public class FreecellControllerTest {
   }
 
   @Test
-  public void testBadMove() {
+  public void testBadMove() throws IOException{
     String input = "";
     OutputStream out2 = new ByteArrayOutputStream();
     StringReader sr = new StringReader(input);

@@ -19,6 +19,7 @@ public class FreecellMultiMoveModel extends FreecellModel implements FreecellOpe
 
   public FreecellMultiMoveModel() {
     super();
+    this.cascadePiles = new CascadeMultiMove();
   }
 
   @Override
@@ -36,19 +37,20 @@ public class FreecellMultiMoveModel extends FreecellModel implements FreecellOpe
     }
 
     // the variable from where the card is moving based on what piletype it is
-    Card movingCard = null;
+    Card choosenCard = null;
     Pile srcPile = null;
     Pile destPile = null;
 
     if (source.equals(PileType.OPEN)) {
-      movingCard = openPiles.getPiles().get(pileNumber).get(cardIndex);
+      choosenCard = openPiles.getPiles().get(pileNumber).get(cardIndex);
       srcPile = openPiles;
     }
     // builds can only be made in cascade piles (sublist of a casacade pile)
     else if (source.equals(PileType.CASCADE)) {
       // check if it is a build or a single move.
       // i.e. moving the last card in the pile or further down in the pile
-      cascadePiles
+      
+
     }
 
     // check if it is valid to take the card
@@ -56,15 +58,15 @@ public class FreecellMultiMoveModel extends FreecellModel implements FreecellOpe
 
     // see where the card is going to
     if (destination.equals(PileType.CASCADE)) {
-      cascadePiles.canPlace(movingCard, destPileNumber);
+      cascadePiles.canPlace(choosenCard, destPileNumber);
 
     }
     else if (destination.equals(PileType.OPEN)) {
-      openPiles.canPlace(movingCard, destPileNumber);
+      openPiles.canPlace(choosenCard, destPileNumber);
       destPile = openPiles;
     }
     else if (destination.equals(PileType.FOUNDATION)) {
-      foundationPiles.canPlace(movingCard, destPileNumber);
+      foundationPiles.canPlace(choosenCard, destPileNumber);
       destPile = foundationPiles;
     }
 

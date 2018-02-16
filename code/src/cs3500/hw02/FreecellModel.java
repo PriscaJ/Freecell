@@ -116,7 +116,7 @@ public class FreecellModel implements FreecellOperations<Card> {
       throw new IllegalArgumentException("Can't place card");
     }
 
-    // see where the card is going to
+    // see where the card is going to 
     //boolean answer;
     if (destination.equals(PileType.CASCADE)) {
       cascadePiles.canPlace(movingCard, destPileNumber);
