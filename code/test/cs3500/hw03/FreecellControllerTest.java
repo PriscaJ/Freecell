@@ -12,6 +12,7 @@ import java.util.List;
 import cs3500.hw02.Card;
 import cs3500.hw02.FreecellModel;
 import cs3500.hw02.FreecellOperations;
+import cs3500.hw02.PileType;
 
 import static org.junit.Assert.assertEquals;
 
@@ -110,10 +111,29 @@ public class FreecellControllerTest {
     fc2.playGame(d, model, 4, 1, false);
     assertEquals("Game quit prematurely.", out.toString());
 
+    String input3 = "C4 3 q1";
+    StringReader sr3 = new StringReader(input2);
+    FreecellController fc3 = new FreecellController(sr2, ps);
+    fc2.playGame(d, model, 4, 1, false);
+    assertEquals("Game quit prematurely.", out.toString());
   }
 
-
+  @Test
   public void testBadMove() {
-    // todo: fix move in model first...
+    String input = "";
+    OutputStream out2 = new ByteArrayOutputStream();
+    StringReader sr = new StringReader(input);
+    PrintStream ps = new PrintStream(out2);
+
+    FreecellModel model = new FreecellModel();
+    List<Card> d = model.getDeck();
+
+    FreecellController fc = new FreecellController(sr, ps);
+    fc.playGame(d, model, 4, 1, false);
+    model.startGame(model.getDeck(), 6, 4, false);
+    model.move(PileType.CASCADE, 3, 8, PileType.OPEN, 0);
+    model.move(PileType.CASCADE, 3, 7, PileType.OPEN, 0);
+    // assertEquals("Invalid move. Try again.". );
+
   }
 }

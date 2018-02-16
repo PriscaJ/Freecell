@@ -159,8 +159,4 @@ public class FreecellModel implements FreecellOperations<Card> {
     }
     return trim;
   }
-
-
-
-  //private Exception gameStateHelp();
 }
