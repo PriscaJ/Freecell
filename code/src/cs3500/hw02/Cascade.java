@@ -41,8 +41,8 @@ public class Cascade extends Pile {
 
     if (currLastCard.suit.sc.equals(Suit.SuitColor.red)) {
       if (c.suit.sc.equals(Suit.SuitColor.black)
-              && currLastCard.value.getNumVal() == (c.value.getNumVal() - 1)) {
-        this.getPiles().get(destPile).add(c);
+              && currLastCard.value.getNumVal() == (c.value.getNumVal() + 1)) {
+        //this.getPiles().get(destPile).add(c);
         canPlaceFlag = true;
 
       }
@@ -53,8 +53,8 @@ public class Cascade extends Pile {
     else if (currLastCard.suit.sc.equals(Suit.SuitColor.black)) {
       if (c.suit.sc.equals(Suit.SuitColor.red)
               && currLastCard.value.getNumVal() == (c.value.getNumVal() - 1)) {
-        this.getPiles().get(destPile).add(c);
-        //canPlaceFlag = true;
+        //this.getPiles().get(destPile).add(c);
+        canPlaceFlag = true;
       }
       else {
         throw new IllegalArgumentException("Cannot place card");

@@ -69,8 +69,7 @@ public class FreecellMultiMoveModelTest {
     multiModel.move(PileType.CASCADE, 0, 11, PileType.OPEN, 1);
     multiModel.move(PileType.CASCADE, 0, 10, PileType.OPEN, 2);
     multiModel.move(PileType.OPEN, 0, 0, PileType.CASCADE, 0);
-    assertEquals("\n" +
-            "F1:\n" +
+    assertEquals("F1:\n" +
             "F2:\n" +
             "F3:\n" +
             "F4:\n" +
