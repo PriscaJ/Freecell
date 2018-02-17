@@ -73,15 +73,16 @@ public class FreecellModel implements FreecellOperations<Card> {
     }
     // Set up the cards in the cascade and open piles
     ArrayList<ArrayList<Card>> currCasPile = new ArrayList<ArrayList<Card>>();
+    ArrayList<ArrayList<Card>> currOpenPile = new ArrayList<ArrayList<Card>>();
+
     cascadePiles.setPiles(currCasPile);
-    // openPiles.pile = currPile;
+    openPiles.setPiles(currOpenPile);
+
     cascadePiles.setPileNum(numCascadePiles);
     openPiles.setPileNum(numOpenPiles);
-    for (int i = 0; i < openPiles.getPileNum(); i++) {
-      openPiles.getPiles().add(new ArrayList<Card>());
-    }
 
     cascadePiles.roundRobin(deck);
+    openPiles.initOpen();
 
   }
 
@@ -119,7 +120,7 @@ public class FreecellModel implements FreecellOperations<Card> {
     // see where the card is going to 
     //boolean answer;
     if (destination.equals(PileType.CASCADE)) {
-      // DOCUMENTATION: boolean answers require if statements
+      // DOCUMENTATION: if statements for booleans
       if (cascadePiles.canPlace(movingCard, destPileNumber)) {
         destPile = cascadePiles;
       }

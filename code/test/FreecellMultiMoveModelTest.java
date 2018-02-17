@@ -4,6 +4,7 @@ import org.junit.Test;
 import cs3500.hw02.Card;
 import cs3500.hw02.FreecellModel;
 import cs3500.hw02.FreecellOperations;
+import cs3500.hw02.PileType;
 import cs3500.hw04.FreecellModelCreator;
 import cs3500.hw04.FreecellMultiMoveModel;
 
@@ -33,8 +34,10 @@ public class FreecellMultiMoveModelTest {
     FreecellOperations<Card> testMultiModel =
             modelCreator.create(FreecellModelCreator.GameType.MULTIMOVE);
 
-    assertEquals(new FreecellModel(), testSingleModel);
-    assertEquals(new FreecellMultiMoveModel(), testMultiModel);
+    assertEquals(true, testSingleModel.getClass().
+            equals(new FreecellModel().getClass()));
+    assertEquals(true, testMultiModel.getClass().
+            equals(new FreecellMultiMoveModel().getClass()));
   }
 
   @Test
@@ -47,8 +50,7 @@ public class FreecellMultiMoveModelTest {
 
   @Test
   public void notEnoughSpaces() {
-    this.initData();
-    multiModel.startGame(multiModel.getDeck(), 6, 10, false);
+
 
 
 
@@ -61,6 +63,25 @@ public class FreecellMultiMoveModelTest {
 
   @Test
   public void singleInMultiMove() {
+    this.initData();
+    multiModel.startGame(multiModel.getDeck(), 4, 3, false);
+    multiModel.move(PileType.CASCADE, 0, 12, PileType.OPEN, 0);
+    multiModel.move(PileType.CASCADE, 0, 11, PileType.OPEN, 1);
+    multiModel.move(PileType.CASCADE, 0, 10, PileType.OPEN, 2);
+    multiModel.move(PileType.OPEN, 0, 0, PileType.CASCADE, 0);
+    assertEquals("\n" +
+            "F1:\n" +
+            "F2:\n" +
+            "F3:\n" +
+            "F4:\n" +
+            "O1:\n" +
+            "O2: 6♠\n" +
+            "O3: 2♠\n" +
+            "C1: A♣, 5♣, 9♣, K♣, 4♦, 8♦, Q♦, 3♥, 7♥, J♥, 10♠\n" +
+            "C2: 2♣, 6♣, 10♣, A♦, 5♦, 9♦, K♦, 4♥, 8♥, Q♥, 3♠, 7♠, J♠\n" +
+            "C3: 3♣, 7♣, J♣, 2♦, 6♦, 10♦, A♥, 5♥, 9♥, K♥, 4♠, 8♠, Q♠\n" +
+            "C4: 4♣, 8♣, Q♣, 3♦, 7♦, J♦, 2♥, 6♥, 10♥, A♠, 5♠, 9♠, K♠",
+            multiModel.getGameState());
 
   }
 

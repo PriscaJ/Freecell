@@ -77,6 +77,7 @@ public class FreecellModelTest {
                     "C3: 3♣, 7♣, J♣, 2♦, 6♦, 10♦, A♥, 5♥, 9♥, K♥, 4♠, 8♠, Q♠\n" +
                     "C4: 4♣, 8♣, Q♣, 3♦, 7♦, J♦, 2♥, 6♥, 10♥, A♠, 5♠, 9♠, K♠",
             model.getGameState());
+
     System.out.print(model.getGameState());
 
 

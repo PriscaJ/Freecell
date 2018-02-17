@@ -18,7 +18,7 @@ public class CascadeMultiMove extends Cascade {
 
   @Override
   public boolean canTake(Card c, ArrayList<ArrayList<Card>> allPiles, int fromPile, int index) {
-    List<Card> build = null;
+    List<Card> build = new ArrayList<Card>();
 
     // if the index is valid
     if (index > getPiles().get(fromPile).size() - 1) {
@@ -73,12 +73,17 @@ public class CascadeMultiMove extends Cascade {
     // is the size of the build less than the amount of intermediate steps
     Card holdCard = build.get(0);
     boolean answer = false;
-    for (int i = 1; i < build.size() - 1; i++) {
-      Card temp = build.get(i);
-      if (!temp.getSuit().sc.equals(holdCard.getSuit().sc)) {
-        if (temp.getValue().getNumVal() == (holdCard.getValue().getNumVal() - 1)) {
-          holdCard = build.get(i);
-          answer = true;
+    if (build.size() == 1) {
+      answer = true;
+    }
+    else {
+      for (int i = 1; i < build.size() - 1; i++) {
+        Card temp = build.get(i);
+        if (!temp.getSuit().sc.equals(holdCard.getSuit().sc)) {
+          if (temp.getValue().getNumVal() == (holdCard.getValue().getNumVal() - 1)) {
+            holdCard = build.get(i);
+            answer = true;
+          }
         }
       }
     }

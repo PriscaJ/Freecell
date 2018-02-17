@@ -57,6 +57,7 @@ public class FreecellMultiMoveModel extends FreecellModel implements FreecellOpe
       srcPile = cascadePiles;
 
       if (cascadePiles.canTake(choosenCard, cascadePiles.getPiles(), pileNumber, cardIndex)) {
+        build.add(choosenCard);
         build.addAll(cascadePiles.getPiles().get(pileNumber).subList(
                 cardIndex, cascadePiles.getPiles().get(pileNumber).size() - 1));
       }
