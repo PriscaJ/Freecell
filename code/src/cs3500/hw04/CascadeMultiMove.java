@@ -19,6 +19,7 @@ public class CascadeMultiMove extends Cascade {
   @Override
   public boolean canTake(Card c, ArrayList<ArrayList<Card>> allPiles, int fromPile, int index) {
     List<Card> build = new ArrayList<Card>();
+    boolean answer;
 
     // if the index is valid
     if (index > getPiles().get(fromPile).size() - 1) {
@@ -39,7 +40,13 @@ public class CascadeMultiMove extends Cascade {
 
     // check the size of the build to ensure it is possible to do
 
-    return validBuild(build);
+    try {
+      answer = validBuild(build);
+    }
+    catch (IllegalArgumentException e) {
+      answer = false;
+    }
+    return answer;
   }
 
   private boolean checkCard(int pile, int cardIndex) {
@@ -84,6 +91,9 @@ public class CascadeMultiMove extends Cascade {
             holdCard = build.get(i);
             answer = true;
           }
+        }
+        else {
+          throw new IllegalArgumentException("Not a valid Build");
         }
       }
     }

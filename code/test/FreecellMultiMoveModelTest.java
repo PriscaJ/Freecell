@@ -21,10 +21,6 @@ public class FreecellMultiMoveModelTest {
     multiModel = new FreecellMultiMoveModel();
   }
 
-  @Test
-  public void invalidBuild() {
-
-  }
 
   @Test
   public void correctModel() {
@@ -48,16 +44,62 @@ public class FreecellMultiMoveModelTest {
     assertEquals(multiModel.getGameState(), singleModel.getGameState());
   }
 
-  @Test
+  @Test(expected = IllegalArgumentException.class)
+  public void badBuild() {
+    this.initData();
+    multiModel.startGame(multiModel.getDeck(), 13, 2, false);
+    multiModel.move(PileType.CASCADE, 9, 2, PileType.CASCADE, 10);
+
+  }
+
+  @Test(expected = IllegalArgumentException.class)
   public void notEnoughSpaces() {
-
-
+    this.initData();
+    multiModel.startGame(multiModel.getDeck(), 13, 2, false);
+    //System.out.print(multiModel.getGameState());
+    multiModel.move(PileType.CASCADE, 11, 3, PileType.OPEN, 0);
+    multiModel.move(PileType.CASCADE, 10, 3, PileType.CASCADE, 11);
+    multiModel.move(PileType.CASCADE, 9, 3, PileType.OPEN, 1);
+    multiModel.move(PileType.CASCADE, 9, 2, PileType.CASCADE, 11);
+    multiModel.move(PileType.CASCADE, 11, 2, PileType.CASCADE, 12);
 
 
   }
 
   @Test
   public void goodMultiMove() {
+    this.initData();
+    multiModel.startGame(multiModel.getDeck(), 13, 6, false);
+    // System.out.print(multiModel.getGameState());
+    multiModel.move(PileType.CASCADE, 11, 3, PileType.OPEN, 0);
+    multiModel.move(PileType.CASCADE, 10, 3, PileType.CASCADE, 11);
+    multiModel.move(PileType.CASCADE, 9, 3, PileType.OPEN, 1);
+    multiModel.move(PileType.CASCADE, 9, 2, PileType.CASCADE, 11);
+    multiModel.move(PileType.CASCADE, 11, 2, PileType.CASCADE, 12);
+    assertEquals("F1:\n" +
+            "F2:\n" +
+            "F3:\n" +
+            "F4:\n" +
+            "O1: Q♠\n" +
+            "O2: 10♠\n" +
+            "O3:\n" +
+            "O4:\n" +
+            "O5:\n" +
+            "O6:\n" +
+            "C1: A♣, A♦, A♥, A♠\n" +
+            "C2: 2♣, 2♦, 2♥, 2♠\n" +
+            "C3: 3♣, 3♦, 3♥, 3♠\n" +
+            "C4: 4♣, 4♦, 4♥, 4♠\n" +
+            "C5: 5♣, 5♦, 5♥, 5♠\n" +
+            "C6: 6♣, 6♦, 6♥, 6♠\n" +
+            "C7: 7♣, 7♦, 7♥, 7♠\n" +
+            "C8: 8♣, 8♦, 8♥, 8♠\n" +
+            "C9: 9♣, 9♦, 9♥, 9♠\n" +
+            "C10: 10♣, 10♦\n" +
+            "C11: J♣, J♦, J♥\n" +
+            "C12: Q♣, Q♦\n" +
+            "C13: K♣, K♦, K♥, K♠, Q♥, J♠, 10♥", multiModel.getGameState());
+    //System.out.print(multiModel.getGameState());
 
   }
 
@@ -86,6 +128,13 @@ public class FreecellMultiMoveModelTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void multiInSingleMove() {
+    this.initData();
+    singleModel.startGame(singleModel.getDeck(), 13, 6, false);
+    singleModel.move(PileType.CASCADE, 11, 3, PileType.OPEN, 0);
+    singleModel.move(PileType.CASCADE, 10, 3, PileType.CASCADE, 11);
+    singleModel.move(PileType.CASCADE, 9, 3, PileType.OPEN, 1);
+    singleModel.move(PileType.CASCADE, 9, 2, PileType.CASCADE, 11);
+    singleModel.move(PileType.CASCADE, 11, 2, PileType.CASCADE, 12);
 
   }
 
