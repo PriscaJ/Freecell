@@ -18,20 +18,32 @@ public class CascadeMultiMove extends Cascade {
   }
 
   @Override
-  public boolean canTake(Card c, ArrayList<ArrayList<Card>> allPiles, int fromPile) {
-    List<Card> build;
+  public boolean canTake(Card c, ArrayList<ArrayList<Card>> allPiles, int fromPile, int index) {
+    List<Card> build = null;
+
+    if (index > getPiles().get(fromPile).size() - 1) {
+      throw new IllegalArgumentException("Index out of bounds");
+    }
     //check if it is the last card in the pile to make a build
-    if (c.equals(allPiles.get(fromPile).get(allPiles.get(fromPile).size() - 1))) {
-      super.canTake(c, allPiles, fromPile);
+    if (c.equals(getPiles().get(fromPile).get(getPiles().get(fromPile).size() - 1))) {
+      // single card build
+      build.add(c);
+
+      //super.canTake(c, allPiles, fromPile);
     }
-    else {
+    else if (getPiles().get(fromPile).contains(c)){
       // make a build with the sublist of cards from that card
-      //build = getPiles().get(fromPile).subList()
+      build.addAll(getPiles().get(fromPile).subList(index, getPiles().get(fromPile).size() - 1));
     }
+
+    validBuild(build);
+    build.size() < intermediateHelp()
+
+
     return false;
   }
 
-  public boolean checkCard(int pile, int cardIndex) {
+  private boolean checkCard(int pile, int cardIndex) {
     // where does the build start?
     Card c = getPiles().get(pile).get(cardIndex);
     isBuild(c, pile, cardIndex);

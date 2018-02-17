@@ -112,7 +112,7 @@ public class FreecellModel implements FreecellOperations<Card> {
     }
 
     // check if it is valid to take the card
-    if (!srcPile.canTake(movingCard, srcPile.getPiles(), pileNumber)) {
+    if (!srcPile.canTake(movingCard, srcPile.getPiles(), pileNumber, cardIndex)) {
       throw new IllegalArgumentException("Can't place card");
     }
 

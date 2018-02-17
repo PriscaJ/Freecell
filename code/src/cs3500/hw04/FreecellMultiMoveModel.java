@@ -45,12 +45,18 @@ public class FreecellMultiMoveModel extends FreecellModel implements FreecellOpe
       choosenCard = openPiles.getPiles().get(pileNumber).get(cardIndex);
       build.add(choosenCard);
       srcPile = openPiles;
+
+      if (!srcPile.canTake(choosenCard, srcPile.getPiles(), pileNumber)) {
+        throw new IllegalArgumentException("Can't place card");
+      }
     }
     // builds can only be made in cascade piles (sublist of a casacade pile)
     else if (source.equals(PileType.CASCADE)) {
       choosenCard = cascadePiles.getPiles().get(pileNumber).get(cardIndex);
 
       //  todo: call canTake which will override its parent so that it can check the build
+
+
       if (cascadePiles.checkCard(pileNumber, cardIndex)) {
         build = cascadePiles.getBuild();
         if (build.size() > intermediateSlots()) {
@@ -61,7 +67,7 @@ public class FreecellMultiMoveModel extends FreecellModel implements FreecellOpe
     }
 
     // check if it is valid to take the card
-    if (!srcPile.canTake(choosenCard, srcPile.getPiles(), pileNumber)) {
+    if (!srcPile.canTake(choosenCard, srcPile.getPiles(), pileNumber, cardIndex)) {
       throw new IllegalArgumentException("Can't place card");
     }
 

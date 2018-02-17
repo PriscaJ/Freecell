@@ -66,8 +66,14 @@ public abstract class Pile {
    *
    * @return boolean if it is the last card in the pile.
    */
-  public boolean canTake(Card c, ArrayList<ArrayList<Card>> allPiles, int fromPile) {
-    return c.equals(allPiles.get(fromPile).get(allPiles.get(fromPile).size() - 1));
+  // DOCUMENTATION: take in the index of the choosen card to check if it is in bounds
+  public boolean canTake(Card c, ArrayList<ArrayList<Card>> allPiles, int fromPile, int index) {
+    if (index > allPiles.get(fromPile).size()) {
+      return false;
+    }
+    else {
+      return c.equals(allPiles.get(fromPile).get(allPiles.get(fromPile).size() - 1));
+    }
   }
 
   /**
