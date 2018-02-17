@@ -76,7 +76,7 @@ public class FreecellMultiMoveModelTest {
 
   @Test
   public void emptyCascadeMove() {
-    multiModel.startGame(multiModel.getDeck(), );
+    //multiModel.startGame(multiModel.getDeck(), );
   }
 
   @Test

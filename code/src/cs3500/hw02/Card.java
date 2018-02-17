@@ -53,4 +53,12 @@ public class Card {
   }
 
 
+  // DOCUMENTATION: getters for the suit and the color
+  public Suit getSuit() {
+    return suit;
+  }
+
+  public CardVal getValue() {
+    return value;
+  }
 }

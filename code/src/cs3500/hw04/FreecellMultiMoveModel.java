@@ -46,54 +46,61 @@ public class FreecellMultiMoveModel extends FreecellModel implements FreecellOpe
       build.add(choosenCard);
       srcPile = openPiles;
 
-      if (!srcPile.canTake(choosenCard, srcPile.getPiles(), pileNumber)) {
+      if (!srcPile.canTake(choosenCard, srcPile.getPiles(), pileNumber, cardIndex)) {
         throw new IllegalArgumentException("Can't place card");
       }
     }
     // builds can only be made in cascade piles (sublist of a casacade pile)
     else if (source.equals(PileType.CASCADE)) {
       choosenCard = cascadePiles.getPiles().get(pileNumber).get(cardIndex);
-
-      //  todo: call canTake which will override its parent so that it can check the build
-
-
-      if (cascadePiles.checkCard(pileNumber, cardIndex)) {
-        build = cascadePiles.getBuild();
-        if (build.size() > intermediateSlots()) {
-          throw new IllegalArgumentException("Build is too large");
-        }
-      }
       srcPile = cascadePiles;
+
+      if (cascadePiles.canTake(choosenCard, cascadePiles.getPiles(), pileNumber, cardIndex)) {
+        build.addAll(cascadePiles.getPiles().get(pileNumber).subList(
+                cardIndex, cascadePiles.getPiles().get(pileNumber).size() - 1));
+      }
     }
 
-    // check if it is valid to take the card
-    if (!srcPile.canTake(choosenCard, srcPile.getPiles(), pileNumber, cardIndex)) {
-      throw new IllegalArgumentException("Can't place card");
+    if (build.size() > intermediateSlots()) {
+      throw new IllegalArgumentException("Too many cards");
     }
 
     // see where the card is going to
     if (destination.equals(PileType.CASCADE)) {
       // todo: check if the choosen card (last card in pile) is able to be placed
       // todo: then move the entire build
-      cascadePiles.canPlace(choosenCard, destPileNumber);
+      if (cascadePiles.canPlace(choosenCard, destPileNumber)) {
+        destPile = cascadePiles;
+      }
 
     }
     else if (destination.equals(PileType.OPEN)) {
       // todo: check if the build is only one card and take that one card to place it as normal
-      openPiles.canPlace(choosenCard, destPileNumber);
-      destPile = openPiles;
+      if (build.size() == 1) {
+        if (openPiles.canPlace(choosenCard, destPileNumber)) {
+          destPile = openPiles;
+        }
+
+      }
     }
     else if (destination.equals(PileType.FOUNDATION)) {
       // todo: check if the build is only one card and take that one card to place it as normal
-      foundationPiles.canPlace(choosenCard, destPileNumber);
-      destPile = foundationPiles;
+      if (build.size() == 1) {
+        if (foundationPiles.canPlace(choosenCard, destPileNumber)) {
+          destPile = foundationPiles;
+        }
+      }
+    }
+
+    if (destPile == null || srcPile == null) {
+      throw new IllegalArgumentException("Cannot Place Card");
     }
 
     // going to a destination is mostly the same
     // besides in the cascades where the entire build can move
-
-
-
+    // make the mutation in the move
+    srcPile.getPiles().get(pileNumber).removeAll(build);
+    destPile.getPiles().get(destPileNumber).addAll(build);
 
   }
 

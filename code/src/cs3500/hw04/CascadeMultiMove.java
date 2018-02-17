@@ -7,6 +7,7 @@ import cs3500.hw02.Card;
 import cs3500.hw02.Cascade;
 import cs3500.hw02.Pile;
 import cs3500.hw02.PileType;
+import cs3500.hw02.Suit;
 
 public class CascadeMultiMove extends Cascade {
 
@@ -14,33 +15,33 @@ public class CascadeMultiMove extends Cascade {
 
   @Override
   public boolean canPlace(Card c, int destPile) {
-    return false;
+    return super.canPlace(c, destPile);
   }
 
   @Override
   public boolean canTake(Card c, ArrayList<ArrayList<Card>> allPiles, int fromPile, int index) {
     List<Card> build = null;
 
+    // if the index is valid
     if (index > getPiles().get(fromPile).size() - 1) {
       throw new IllegalArgumentException("Index out of bounds");
     }
-    //check if it is the last card in the pile to make a build
+    //check if it is the last card in the pile, single card build
     if (c.equals(getPiles().get(fromPile).get(getPiles().get(fromPile).size() - 1))) {
       // single card build
       build.add(c);
 
       //super.canTake(c, allPiles, fromPile);
     }
+    // make a build with a sublist starting from the card to the end of the list
     else if (getPiles().get(fromPile).contains(c)){
       // make a build with the sublist of cards from that card
       build.addAll(getPiles().get(fromPile).subList(index, getPiles().get(fromPile).size() - 1));
     }
 
-    validBuild(build);
-    build.size() < intermediateHelp()
+    // check the size of the build to ensure it is possible to do
 
-
-    return false;
+    return validBuild(build);
   }
 
   private boolean checkCard(int pile, int cardIndex) {
@@ -75,13 +76,14 @@ public class CascadeMultiMove extends Cascade {
     Card holdCard = build.get(0);
     boolean answer = false;
     for (int i = 1; i < build.size() - 1; i++) {
-      if (super.canPlace(holdCard, build.get(i))) {
-        holdCard = build.get(i);
-        answer = true;
+      Card temp = build.get(i);
+      if (!temp.getSuit().sc.equals(holdCard.getSuit().sc)) {
+        if (temp.getValue().getNumVal() == (holdCard.getValue().getNumVal() - 1)) {
+          holdCard = build.get(i);
+          answer = true;
+        }
       }
     }
-    if (build.size() <)
     return answer;
   }
-
 }

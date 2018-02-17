@@ -119,16 +119,26 @@ public class FreecellModel implements FreecellOperations<Card> {
     // see where the card is going to 
     //boolean answer;
     if (destination.equals(PileType.CASCADE)) {
-      cascadePiles.canPlace(movingCard, destPileNumber);
+      // DOCUMENTATION: boolean answers require if statements
+      if (cascadePiles.canPlace(movingCard, destPileNumber)) {
+        destPile = cascadePiles;
+      }
 
     }
     else if (destination.equals(PileType.OPEN)) {
-      openPiles.canPlace(movingCard, destPileNumber);
-      destPile = openPiles;
+      if (openPiles.canPlace(movingCard, destPileNumber)) {
+        destPile = openPiles;
+      }
     }
     else if (destination.equals(PileType.FOUNDATION)) {
-      foundationPiles.canPlace(movingCard, destPileNumber);
-      destPile = foundationPiles;
+      if (foundationPiles.canPlace(movingCard, destPileNumber)) {
+        destPile = foundationPiles;
+      }
+    }
+
+    // DOCUMENTATION: check if there is anything that is still null
+    if (destPile == null || srcPile == null) {
+      throw new IllegalArgumentException("Cannot Place Card");
     }
 
     // mutate to make the move
