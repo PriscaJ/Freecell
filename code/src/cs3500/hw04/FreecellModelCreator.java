@@ -9,13 +9,6 @@ import cs3500.hw02.FreecellOperations;
  */
 public class FreecellModelCreator {
 
-  public enum GameType {
-    SINGLEMOVE("Single Move"), MULTIMOVE("Multi move");
-
-    GameType(String game) {
-      // constructor for Gametype
-    }
-
   /**
    * Creates the given game to support multimove or single move.
    *
@@ -32,5 +25,13 @@ public class FreecellModelCreator {
     }
     return modelType;
   }
+
+  public enum GameType {
+    SINGLEMOVE, MULTIMOVE;
+
+    GameType() {
+      // constructor for Gametype
+    }
   }
 }
+
