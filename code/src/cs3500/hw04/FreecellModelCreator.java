@@ -5,7 +5,7 @@ import cs3500.hw02.FreecellModel;
 import cs3500.hw02.FreecellOperations;
 
 /**
- * Sets up the factory to produce different model creations
+ * Sets up the factory to produce different model creations.
  */
 public class FreecellModelCreator {
 

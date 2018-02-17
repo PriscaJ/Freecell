@@ -11,7 +11,7 @@ import cs3500.hw02.PileType;
 
 
 /**
- * Class representing the model to handle multiple moves at once, moving a "stack" of cards
+ * Class representing the model to handle multiple moves at once, moving a "stack" of cards.
  */
 public class FreecellMultiMoveModel extends FreecellModel implements FreecellOperations<Card> {
 
@@ -28,7 +28,8 @@ public class FreecellMultiMoveModel extends FreecellModel implements FreecellOpe
      * 1. Moving the bottom card in the "build" is a valid move
      * 2. The cards in the "build" are alternating colors
      * 3. The cards in the "build" descending by 1
-     * 4. The move can be completed as a series of individual card moves using empty cascade/open piles.
+     * 4. The move can be completed as a series of individual card moves
+     *    using empty cascade/open piles.
      */
     if ((source == null) || (destination == null)) {
       throw new IllegalArgumentException("source or destination can not be null");

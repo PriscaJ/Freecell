@@ -76,7 +76,7 @@ public class FreecellControllerTest {
   }
 
   @Test
-  public void testInvalidIndex() throws IOException{
+  public void testInvalidIndex() throws IOException {
 
     String input = "C1 R F2";
     OutputStream out = new ByteArrayOutputStream();
@@ -122,7 +122,7 @@ public class FreecellControllerTest {
   }
 
   @Test
-  public void testBadMove() throws IOException{
+  public void testBadMove() throws IOException {
     String input = "";
     OutputStream out2 = new ByteArrayOutputStream();
     StringReader sr = new StringReader(input);

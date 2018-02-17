@@ -24,7 +24,7 @@ public class Open extends Pile {
       //thisPile.add(c);
     }
     else {
-      throw new RuntimeException("Card already in this Pile");
+      // simply remain false.
     }
     return canPlaceFlag;
   }

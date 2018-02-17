@@ -24,17 +24,20 @@ public class Foundation extends Pile {
    * @return Boolean if the all cards are in the foundations.
    */
   public boolean allCards() {
+    boolean answer = false;
     ArrayList<Card> seen = new ArrayList<Card>();
     for (ArrayList<Card> suitPile : this.getPiles()) {
       for (Card c : suitPile) {
         if (seen.contains(c)) {
-          throw new RuntimeException("duplicate card");
-        } else {
+          return answer;
+        }
+        else {
           seen.add(c);
         }
       }
+      answer = seen.size() == 52;
     }
-    return seen.size() == 52;
+    return answer;
   }
 
   @Override
