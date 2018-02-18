@@ -1,10 +1,18 @@
 
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.io.StringReader;
+import java.util.List;
+
 import cs3500.hw02.Card;
 import cs3500.hw02.FreecellModel;
 import cs3500.hw02.FreecellOperations;
 import cs3500.hw02.PileType;
+import cs3500.hw03.FreecellController;
 import cs3500.hw04.FreecellModelCreator;
 import cs3500.hw04.FreecellMultiMoveModel;
 
@@ -14,6 +22,7 @@ public class FreecellMultiMoveModelTest {
   FreecellModelCreator modelCreator;
   FreecellOperations<Card> singleModel;
   FreecellOperations<Card> multiModel;
+
 
   public void initData() {
     modelCreator = new FreecellModelCreator();
@@ -139,13 +148,21 @@ public class FreecellMultiMoveModelTest {
   }
 
   @Test
-  public void controlMulti() {
+  public void controlMulti() throws IOException{
+    this.initData();
+    OutputStream out = new ByteArrayOutputStream();
+    StringReader sr = new StringReader("");
+    PrintStream ps = new PrintStream(out);
 
+    FreecellController fc = new FreecellController(sr, ps);
+    fc.playGame(multiModel.getDeck(), multiModel, 4, 1, false);
+    assertEquals(multiModel.getGameState(), out.toString());
   }
 
   @Test
   public void emptyCascadeMove() {
-    //multiModel.startGame(multiModel.getDeck(), );
+    multiModel.startGame(multiModel.getDeck(), 13, 6, false);
+    
   }
 
   @Test
